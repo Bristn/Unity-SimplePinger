@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Checkbox" src="project://database/Assets/Layouts/Templates/Checkbox.uxml?fileID=9197481963319205126&amp;guid=0c110f6ca5e100d46b66d3eb6ab45529&amp;type=3#Checkbox" />
+    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
+    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
+    <ui:VisualElement class="background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1; background-color: rgb(47, 54, 64);">
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden">
+            <ui:VisualElement style="flex-grow: 1; align-items: center;">
+                <ui:Instance template="Checkbox" name="toggle-code" style="width: 100%; height: 60px; margin-bottom: 20px;" />
+                <ui:Instance template="Checkbox" name="toggle-vibration-success" style="width: 100%; height: 60px; margin-bottom: 20px;" />
+                <ui:Instance template="Checkbox" name="toggle-vibration-failure" style="width: 100%; height: 60px; margin-bottom: 20px;" />
+                <ui:Instance template="Checkbox" name="toggle-save-tab" style="width: 100%; height: 60px; margin-bottom: 20px;" />
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

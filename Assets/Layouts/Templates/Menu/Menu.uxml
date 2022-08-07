@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
+    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
+    <ui:VisualElement name="root" picking-mode="Ignore" style="height: 100%; position: absolute; width: 100%;">
+        <ui:VisualElement name="parent-icon" class="background-neutral" style="flex-direction: row; flex-shrink: 0; position: absolute; width: 100%; height: 60px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:Label text="Tab selection" display-tooltip-when-elided="true" name="label-text" class="text-regular foreground-on-neutral" style="flex-grow: 1; margin-left: 0; margin-right: 20px; margin-top: 0; margin-bottom: 0; padding-left: 20px; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-left;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="background" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2);" />
+        <ui:VisualElement name="parent-text" class="rounded-corners background-neutral" style="position: absolute; right: 0; top: 0; width: auto;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,73 @@
+using Assets.Scripts.PlayerLoop;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UIElements;
+
+public static class Connection 
+{
+    public static IEnumerator ActivateEntry(this PingEntry pEntry)
+    {
+        PlayerLoopManager.PreventProfileChange++;
+        pEntry.Status = PingEntry.PingStatus.CONNECTING;
+
+        UnityWebRequest request = UnityWebRequest.Get(pEntry.FullUrl);
+        request.certificateHandler = new CertificateDummy();
+        yield return request.SendWebRequest();
+
+        bool success = IsCodeSuccess(request.responseCode);
+        pEntry.StatusCode = request.responseCode;
+
+        if (success)
+        {
+            pEntry.Status = PingEntry.PingStatus.SUCCESS;
+            if (SettingsData.Settings.VibrateOnSuccess)
+            {
+                Handheld.Vibrate();
+            }
+        }
+        else
+        {
+            pEntry.Status = PingEntry.PingStatus.FAILURE;
+            if (SettingsData.Settings.VibrateOnFailure)
+            {
+                Handheld.Vibrate();
+            }
+        }
+
+        yield return new WaitForSecondsRealtime(2);
+        pEntry.Status = PingEntry.PingStatus.INACTIVE;
+        PlayerLoopManager.PreventProfileChange--;
+    }
+
+    public static IEnumerator SetConnectionStatus(this EntryEditor pEditor, string pAddress)
+    {
+        PlayerLoopManager.PreventProfileChange++;
+        UnityWebRequest request = UnityWebRequest.Get(pAddress);
+        request.certificateHandler = new CertificateDummy();
+        yield return request.SendWebRequest();
+
+        bool success = IsCodeSuccess(request.responseCode);
+        pEditor.Status = success ? EntryEditor.ConnectionStatus.SUCCESS : EntryEditor.ConnectionStatus.FAILURE;
+        PlayerLoopManager.PreventProfileChange--;
+    }
+
+    private static bool IsCodeSuccess(long pCode)
+    {
+        if (pCode >= 200 && pCode < 300)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private class CertificateDummy : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] pData)
+        {
+            return true;
+        }
+    }
+}

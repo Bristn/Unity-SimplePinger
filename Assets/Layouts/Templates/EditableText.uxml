@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
+    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
+    <ui:Button text="&#10;" display-tooltip-when-elided="true" name="root" class="button-neutral rounded-corners button-base" style="flex-grow: 0; height: 60px; width: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-direction: row;">
+        <ui:VisualElement name="icon-selected" style="height: 30px; width: 30px; margin-left: 20px; background-image: url(&apos;project://database/Assets/Icons/Check-Circled.svg?fileID=7388822144124034973&amp;guid=769e243b4f39bb543a1fa64168d46f7d&amp;type=3#Check-Circled&apos;);" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="label-value" class="text-regular foreground-on-neutral" style="flex-grow: 1; flex-shrink: 0; margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-left; height: auto;" />
+        <ui:Button display-tooltip-when-elided="true" name="button-edit" class="button-base" style="background-color: rgba(188, 188, 188, 0); width: 60px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement class="foreground-on-neutral" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Edit.svg?fileID=7388822144124034973&amp;guid=3120a89c6a5853542a28e2f36a480702&amp;type=3#Edit&apos;);" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="button-delete" class="button-base" style="background-color: rgba(188, 188, 188, 0); width: 60px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement class="foreground-on-neutral" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Trash.svg?fileID=7388822144124034973&amp;guid=bbe6baf70a334434bb59d0e200c3dbbe&amp;type=3#Trash&apos;);" />
+        </ui:Button>
+    </ui:Button>
+</ui:UXML>

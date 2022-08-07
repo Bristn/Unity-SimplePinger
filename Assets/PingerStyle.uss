@@ -1,0 +1,43 @@
+.rounded-corners {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.button-base {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    transition-duration: 0.1s;
+}
+
+.button-base:active {
+    scale: 1.05 1.05;
+    transition-duration: 0.1s;
+    rotate: 0;
+}
+
+.button-neutral {
+    background-color: rgb(87, 96, 111);
+}
+
+.button-positive {
+    background-color: rgb(112, 161, 255);
+}
+
+.button-negative {
+    background-color: rgb(255, 107, 129);
+}

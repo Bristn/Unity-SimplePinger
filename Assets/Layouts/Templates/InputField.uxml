@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
+    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
+    <ui:VisualElement name="root" class="rounded-corners border-positive" style="flex-direction: row; flex-shrink: 0; align-items: center; height: 60px; width: 100%; margin-bottom: 20px; background-color: rgba(0, 0, 0, 0); flex-grow: 0;">
+        <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="text-field" style="flex-grow: 1; flex-shrink: 1; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; height: 100%; border-top-left-radius: 20px; border-bottom-left-radius: 20px;" />
+        <ui:VisualElement name="icon-valid" class="foreground-on-neutral" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Trash.svg?fileID=7388822144124034973&amp;guid=bbe6baf70a334434bb59d0e200c3dbbe&amp;type=3#Trash&apos;); margin-right: 15px;" />
+        <ui:Button display-tooltip-when-elided="true" name="button-save" class="button-base" style="background-color: rgba(188, 188, 188, 0); width: 60px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement class="foreground-on-neutral" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Save.svg?fileID=7388822144124034973&amp;guid=ec16c1c51b6a11e42a36fa50f7f70a3a&amp;type=3#Save&apos;);" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="button-discard" class="button-base" style="background-color: rgba(188, 188, 188, 0); width: 60px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement class="foreground-on-neutral" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Discard.svg?fileID=7388822144124034973&amp;guid=3027910132f3f554f9b8000f3256d3b8&amp;type=3#Discard&apos;);" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

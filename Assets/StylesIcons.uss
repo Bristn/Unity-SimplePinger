@@ -1,0 +1,64 @@
+.background-neutral {
+    background-color: rgb(87, 96, 111);
+}
+
+.text-regular {
+    font-size: 20px;
+}
+
+.text-small {
+    font-size: 16px;
+}
+
+.foreground-on-positive {
+    -unity-background-image-tint-color: rgb(47, 54, 64);
+    color: rgb(47, 54, 64);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.foreground-on-negative {
+    -unity-background-image-tint-color: rgb(47, 54, 64);
+    color: rgb(47, 54, 64);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.foreground-on-neutral {
+    -unity-background-image-tint-color: rgb(220, 221, 225);
+    color: rgb(220, 221, 225);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.foreground-negative {
+    -unity-background-image-tint-color: rgb(255, 107, 129);
+    color: rgb(255, 107, 129);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.foreground-positive {
+    -unity-background-image-tint-color: rgb(112, 161, 255);
+    color: rgb(112, 161, 255);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.border-positive {
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgba(112, 161, 255, 255);
+    border-right-color: rgba(112, 161, 255, 255);
+    border-top-color: rgba(112, 161, 255, 255);
+    border-bottom-color: rgba(112, 161, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.border-negative {
+    border-left-color: rgba(255, 107, 129, 255);
+    border-right-color: rgba(255, 107, 129, 255);
+    border-top-color: rgba(255, 107, 129, 255);
+    border-bottom-color: rgba(255, 107, 129, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
