@@ -1,0 +1,17 @@
+.floating-action-button {
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    transition-duration: 0.1s;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-action-button:active {
+    scale: 1.1 1.1;
+}

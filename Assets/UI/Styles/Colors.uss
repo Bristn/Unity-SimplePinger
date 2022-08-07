@@ -1,0 +1,7 @@
+.color-background-dark {
+    background-color: rgb(25, 25, 25);
+}
+
+.color-background-positive {
+    background-color: rgb(90, 127, 197);
+}

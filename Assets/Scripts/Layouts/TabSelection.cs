@@ -95,7 +95,7 @@ public class TabSelection : UILayout
             .Value(string.Empty)
             .Build();
 
-        tabParent.Insert(tabParent.childCount - 1, input.Root);
+        tabParent.Add(input.Root);
         buttonAddTab.style.display = DisplayStyle.None;
     }
 
@@ -117,7 +117,7 @@ public class TabSelection : UILayout
 
         entry.SetConnectedInput(input);
         input.SetConnectedText(entry);
-        tabParent.Insert(tabParent.childCount - 1, entry.Root);
+        tabParent.Add(entry.Root);
 
         return entry;
     }
