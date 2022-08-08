@@ -14,16 +14,16 @@ public class MenuItem
 
     private Action<MenuItem> onClick;
     private Action onClickNone;
-    public float iconSize;
-    public float iconButtonSize;
+    public Vector2 iconSize;
+    public Vector2 iconButtonSize;
 
     public MenuItem
         (
             VisualElement pRoot,
             string pText,
             VectorImage pIcon,
-            float pIconSize,
-            float pIconButtonSize,
+            Vector2 pIconSize,
+            Vector2 pIconButtonSize,
             Action<MenuItem> pOnClick,
             Action pOnClickNone
         )
@@ -89,30 +89,48 @@ public class MenuItem
         }
     }
 
-    public float IconSize
+    public Vector2 IconSize
     {
         get => iconSize;
         set 
         {
             iconSize = value;
-            if (Icon != null)
+            if (Icon == null)
             {
-                icon.style.width = iconSize;
-                icon.style.height = iconSize;
+                return;
+            }
+
+            if (iconSize.x != -1)
+            {
+                icon.style.width = iconSize.x;
+            }
+
+            if (iconSize.y != -1)
+            {
+                icon.style.height = iconSize.y;
             }
         }
     }
 
-    public float IconButtonSize
+    public Vector2 IconButtonSize
     {
         get => iconButtonSize;
         set
         {
             iconButtonSize = value;
-            if (Icon != null)
+            if (Icon == null)
             {
-                root.style.width = iconButtonSize;
-                root.style.height = iconButtonSize;
+                return;
+            }
+
+            if (iconButtonSize.x != -1)
+            {
+                root.style.width = iconButtonSize.x;
+            }
+
+            if (iconButtonSize.y != -1)
+            {
+                root.style.height = iconButtonSize.y;
             }
         }
     }

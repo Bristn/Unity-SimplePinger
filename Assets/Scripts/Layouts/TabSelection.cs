@@ -52,9 +52,9 @@ public class TabSelection : UILayout
             .Build();
 
         menuExport = new MenuItemBuilder()
-          .Text("Export selected")
-          .OnClick(PressedExport)
-          .Build();
+            .Text("Export selected")
+            .OnClick(PressedExport)
+            .Build();
 
         menuSettings = new MenuItemBuilder()
             .Text("Settings")

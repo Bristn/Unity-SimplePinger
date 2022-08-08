@@ -24,8 +24,8 @@ public class MenuItemBuilder : MonoBehaviour
     private string text = string.Empty;
 
     private VectorImage icon = null;
-    private float iconSize = 30;
-    private float iconButtonSize = 60;
+    private Vector2 iconSize = new Vector2(20, 20);
+    private Vector2 iconButtonSize = new Vector2(50, 60);
 
     private Action<MenuItem> onClick = null;
     private Action onClickNone = null;
@@ -61,15 +61,15 @@ public class MenuItemBuilder : MonoBehaviour
         return this;
     }
 
-    public MenuItemBuilder IconSize(float pSize)
+    public MenuItemBuilder IconSize(float pWidth = -1, float pHeight = -1)
     {
-        iconSize = pSize;
+        iconSize = new Vector2(pWidth, pHeight);
         return this;
     }
 
-    public MenuItemBuilder IconButtonSize(float pSize)
+    public MenuItemBuilder IconButtonSize(float pWidth = -1, float pHeight = -1)
     {
-        iconButtonSize = pSize;
+        iconButtonSize = new Vector2(pWidth, pHeight);
         return this;
     }
 
