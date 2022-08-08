@@ -54,14 +54,15 @@ public class EntrySelection : UILayout
 
         // Create menu
         menuBack = new MenuItemBuilder()
-           .Icon(UiIcons.MenuBack)
-           .OnClick(PressedBack)
-           .Build();
+            .Icon(UiIcons.MenuBack)
+            .OnClick(PressedBack)
+            .IsBackButton(true)
+            .Build();
 
         menuDelete = new MenuItemBuilder()
-           .Icon(UiIcons.MenuDelete)
-           .OnClick(PressedDelete)
-           .Build();
+            .Icon(UiIcons.MenuDelete)
+            .OnClick(PressedDelete)
+            .Build();
 
         menuSelect = new MenuItemBuilder()
             .Text("Select all")
@@ -69,10 +70,11 @@ public class EntrySelection : UILayout
             .Build();
 
         menu = new MenuBuilder()
-            .MenuItems(menuBack, true)
+            .BackButton(menuBack)
             .MenuItems(menuDelete)
             .MenuItems(menuSelect)
             .Text(tabName)
+            .SelectionTracker(selectionTracker)
             .Build();
 
         root.Add(menu.Root);

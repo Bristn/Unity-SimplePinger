@@ -27,8 +27,8 @@ public class MenuItemBuilder : MonoBehaviour
     private Vector2 iconSize = new Vector2(20, 20);
     private Vector2 iconButtonSize = new Vector2(50, 60);
 
-    private Action<MenuItem> onClick = null;
-    private Action onClickNone = null;
+    private Action onClick = null;
+    private bool isBackButton;
 
 
     public MenuItemBuilder Root(VisualElement pRoot)
@@ -49,15 +49,9 @@ public class MenuItemBuilder : MonoBehaviour
         return this;
     }
 
-    public MenuItemBuilder OnClick(Action<MenuItem> pOnClick)
-    {
-        onClick = pOnClick;
-        return this;
-    }
-
     public MenuItemBuilder OnClick(Action pOnClick)
     {
-        onClickNone = pOnClick;
+        onClick = pOnClick;
         return this;
     }
 
@@ -73,6 +67,12 @@ public class MenuItemBuilder : MonoBehaviour
         return this;
     }
 
+    public MenuItemBuilder IsBackButton(bool pIsBack)
+    {
+        isBackButton = pIsBack;
+        return this;
+    }
+
 
     // Build
     public MenuItem Build()
@@ -83,6 +83,6 @@ public class MenuItemBuilder : MonoBehaviour
             root = Prefab.Instantiate().Q<VisualElement>("root");
         }
 
-        return new MenuItem(root, text, icon, iconSize, iconButtonSize, onClick, onClickNone);
+        return new MenuItem(root, text, icon, iconSize, iconButtonSize, onClick, isBackButton);
     }
 }

@@ -14,6 +14,12 @@ public class SelectionTracker
         onSelectionChange = pOnSelectionChange;
     }
 
+    public Action OnSelectionChange
+    {
+        get => onSelectionChange;
+        set => onSelectionChange = value;
+    }
+
     public void SelectElement(SelectableElement pElement, bool pSelected)
     {
         if (!elements.Contains(pElement))
@@ -44,7 +50,7 @@ public class SelectionTracker
             }
         }
 
-        onSelectionChange?.Invoke();
+        OnSelectionChange?.Invoke();
     }
 
     public void SetAllSelected(bool pSelected)

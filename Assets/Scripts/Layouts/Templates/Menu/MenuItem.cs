@@ -12,10 +12,9 @@ public class MenuItem
     private VisualElement icon;
     private Label labelText;
 
-    private Action<MenuItem> onClick;
-    private Action onClickNone;
-    public Vector2 iconSize;
-    public Vector2 iconButtonSize;
+    private Action onClick;
+    private Vector2 iconSize;
+    private Vector2 iconButtonSize;
 
     public MenuItem
         (
@@ -24,13 +23,12 @@ public class MenuItem
             VectorImage pIcon,
             Vector2 pIconSize,
             Vector2 pIconButtonSize,
-            Action<MenuItem> pOnClick,
-            Action pOnClickNone
+            Action pOnClick,
+            bool pIsBackButton
         )
     {
         // Assign variables
         onClick = pOnClick;
-        onClickNone = pOnClickNone;
 
         // Assign UI elements
         root = pRoot.name.Equals("root") ? pRoot : root = pRoot.Q<VisualElement>("root");
@@ -39,7 +37,10 @@ public class MenuItem
         labelText = root.Q<Label>("label-text");
 
         // Assign button actions
-        rootButton.clicked += PressedItem;
+        if (!pIsBackButton)
+        {
+            rootButton.clicked += PressedItem;
+        }
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
@@ -54,6 +55,12 @@ public class MenuItem
     public VisualElement Root => root;
 
     public bool HasIcon => Icon != null;
+
+    public Action OnClick
+    {
+        get => onClick;
+        set => onClick = value;
+    }
 
     public string Text
     {
@@ -135,9 +142,5 @@ public class MenuItem
         }
     }
 
-    private void PressedItem()
-    {
-        onClick?.Invoke(this);
-        onClickNone?.Invoke();
-    }
+    public void PressedItem() => onClick?.Invoke();
 }

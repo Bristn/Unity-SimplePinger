@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,15 @@ public class Menu : UILayout
     private VisualElement background;
     private Label labelText;
 
+    private string text;
     private MenuItem itemShowMenu;
     private HashSet<MenuItem> menuItems = new HashSet<MenuItem>();
+    private SelectionTracker selectionTracker;
+    private MenuItem backButton;
+    private bool hasBackButton;
 
-    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem, bool> pItems)
+
+    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem,bool> pItems, SelectionTracker pSelectionTracker, MenuItem pBackButton)
     {
         // Assign UI elements
         root = pRoot.name.Equals("root") ? pRoot : root = pRoot.Q<VisualElement>("root");
@@ -34,18 +40,38 @@ public class Menu : UILayout
             AddMenuItem(pair.Key, pair.Value);
         }
 
+        // Create back button
+        backButton = pBackButton;
+        hasBackButton = backButton != null;
+        if (backButton == null)
+        {
+            backButton = new MenuItemBuilder()
+                .Icon(UiIcons.MenuBack)
+                .IsBackButton(true)
+                .Build();
+        }
+        ((Button)backButton.Root).clicked += PressedBack;
+        AddMenuItem(backButton, true);
+        SetMenuItemVisible(backButton, hasBackButton);
+
         // Add style sheet & classes
         root.AddAllStyleSheets();
 
         // Update visuals
-        Text = pText;
+        text = pText;
+        Text = text;
+        selectionTracker = pSelectionTracker;
+        if (selectionTracker != null)
+        {
+            selectionTracker.OnSelectionChange += OnSelectionChanged;
+        }
     }
 
     public VisualElement Root => root;
 
     public string Text
     {
-        get => labelText.text;
+        get => text;
         set
         {
             labelText.text = value;
@@ -128,7 +154,7 @@ public class Menu : UILayout
         itemShowMenu.Root.style.display = DisplayStyle.None;
     }
 
-    private void PressedShowMore(MenuItem pItem)
+    private void PressedShowMore()
     {
         background.style.display = DisplayStyle.Flex;
         parentText.style.display = DisplayStyle.Flex;
@@ -140,5 +166,30 @@ public class Menu : UILayout
     {
         background.style.display = DisplayStyle.None;
         parentText.style.display = DisplayStyle.None;
+    }
+
+    private void OnSelectionChanged()
+    {
+        if (selectionTracker.HasSelection)
+        {
+            Text = selectionTracker.Selection.Count + "";
+            backButton.Root.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            Text = text;
+            backButton.Root.style.display = hasBackButton ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+
+    private void PressedBack()
+    {
+        if (selectionTracker != null && selectionTracker.HasSelection)
+        {
+            selectionTracker.SetAllSelected(false);
+            return;
+        }
+
+        backButton.PressedItem();
     }
 }

@@ -67,6 +67,7 @@ public class TabSelection : UILayout
             .MenuItems(menuExport)
             .MenuItems(menuSettings)
             .Text("Tab selection")
+            .SelectionTracker(selectionTracker)
             .Build();
 
         root.Add(menu.Root);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class MenuBuilder : MonoBehaviour
 
     private string text = "";
     private Dictionary<MenuItem, bool> menuItems = new Dictionary<MenuItem, bool>();
+    private SelectionTracker selectionTracker;
+    private MenuItem backButton;
 
 
     public MenuBuilder Root(VisualElement pRoot)
@@ -49,6 +52,18 @@ public class MenuBuilder : MonoBehaviour
         return this;
     }
 
+    public MenuBuilder SelectionTracker(SelectionTracker pSelectionTracker)
+    {
+        selectionTracker = pSelectionTracker;
+        return this;
+    }
+
+    public MenuBuilder BackButton(MenuItem pItem)
+    {
+        backButton = pItem;
+        return this;
+    }
+
 
     // Build
     public Menu Build()
@@ -59,6 +74,6 @@ public class MenuBuilder : MonoBehaviour
             root = Prefab.Instantiate().Q<VisualElement>("root");
         }
 
-        return new Menu(root, text, menuItems);
+        return new Menu(root, text, menuItems, selectionTracker, backButton);
     }
 }
