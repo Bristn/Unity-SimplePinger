@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -162,20 +163,11 @@ public class TabSelection : UILayout
 
     private void PressedDelete()
     {
-        if (SystemInfo.deviceType == DeviceType.Desktop)
-        {
-            DeleteSelectedEntries();
-            return;
-        }
-
-        Action<bool> callback = (pResult) =>
-        {
-            if (pResult)
-            {
-                DeleteSelectedEntries();
-            }
-        };
-        NativeToolkit.ShowConfirm("Delete entries?", "This is going to delete the selected entries permanently. Do yo wish to continue?", callback, "Delete", "Cancel");
+        string title = "Delete entries?";
+        string message = "This is going to delete the selected entries permanently. Do yo wish to continue?";
+        string positive = "Delete";
+        string negative = "Cancel";
+        Extensions.ShowConfirmDialog(DeleteSelectedEntries, null, title, message, positive, negative);
     }
 
     private void DeleteSelectedEntries()

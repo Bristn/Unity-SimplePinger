@@ -1,5 +1,8 @@
+using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
@@ -12,6 +15,12 @@ public class EntrySelection : UILayout
     private string tabName;
     private TabData tabData;
     private List<PingEntry> entries = new List<PingEntry>();
+    private SelectionTracker selectionTracker;
+
+    private Menu menu;
+    private MenuItem menuDelete;
+    private MenuItem menuSelect;
+    private MenuItem menuBack;
 
     public EntrySelection(string pTabName)
     {
@@ -25,6 +34,7 @@ public class EntrySelection : UILayout
 
         // Assign variables
         tabData = (TabData)Persistence.LoadObjectFromJson(typeof(TabData), Persistence.TABS_FOLDER, tabName);
+        selectionTracker = new SelectionTracker(OnSelectionChange);
 
         // Assign UI elements
         VisualElement root = document.rootVisualElement;
@@ -37,17 +47,31 @@ public class EntrySelection : UILayout
         // Draw the ping entries
         foreach (EntryData data in tabData.Entries)
         {
-            entries.Add(GetNewPingEntry(data));
+            PingEntry entry = GetNewPingEntry(data);
+            entries.Add(entry);
+            selectionTracker.AddElement(entry);
         }
 
         // Create menu
-        MenuItem itemBack = new MenuItemBuilder()
+        menuBack = new MenuItemBuilder()
            .Icon(UiIcons.MenuBack)
            .OnClick(PressedBack)
            .Build();
 
-        Menu menu = new MenuBuilder()
-            .MenuItems(itemBack, true)
+        menuDelete = new MenuItemBuilder()
+           .Icon(UiIcons.MenuDelete)
+           .OnClick(PressedDelete)
+           .Build();
+
+        menuSelect = new MenuItemBuilder()
+            .Text("Select all")
+            .OnClick(PressedSelectAll)
+            .Build();
+
+        menu = new MenuBuilder()
+            .MenuItems(menuBack, true)
+            .MenuItems(menuDelete)
+            .MenuItems(menuSelect)
             .Text(tabName)
             .Build();
 
@@ -63,8 +87,8 @@ public class EntrySelection : UILayout
             .Data(pData)
             .Status(PingEntry.PingStatus.INACTIVE)
             .OnClick(PressedEntry)
+            .OnLongClick(LongPressedEntry)
             .OnEdit(PressedEditEntry)
-            .OnDelete(PressedDeleteEntry)
             .Build();
         entryParent.Add(entry.Root);
 
@@ -73,47 +97,31 @@ public class EntrySelection : UILayout
 
     private void PressedEntry(PingEntry pEntry, EntryData pData)
     {
-        Application.RunAsync(pEntry.ActivateEntry());
+        if (!selectionTracker.HasSelection)
+        {
+            Application.RunAsync(pEntry.ActivateEntry());
+        }
+        else
+        {
+            selectionTracker.SelectElement(pEntry, !pEntry.Selected);
+        }
     }
 
-    private void PressedEditEntry(PingEntry pEntry, EntryData pData)
-    {
-        Hide();
+    private void LongPressedEntry(PingEntry pEntry, EntryData pData) => selectionTracker.SelectElement(pEntry, !pEntry.Selected);
 
-        EntryEditor entryEditor = new EntryEditor();
-        entryEditor.Show(pData, OnChangeEntry, OnDiscardEntryChange);
-    }
-
-
+    private void PressedEditEntry(PingEntry pEntry, EntryData pData) => ShowOtherLayout(new EntryEditor(pData, OnChangeEntry, OnDiscardEntryChange));
+    
     private void OnChangeEntry(EntryData pOld, EntryData pNew)
     {
         tabData.RemoveEntry(pOld);
         tabData.AddEntry(pNew);
-        // entries.Add(GetNewPingEntry(pData));
         Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
         ShowOtherLayout(new EntrySelection(tabName));
     }
 
+    private void OnDiscardEntryChange() => ShowOtherLayout(new EntrySelection(tabName));
 
-    private void OnDiscardEntryChange()
-    {
-        ShowOtherLayout(new EntrySelection(tabName));
-    }
-
-    private void PressedDeleteEntry(PingEntry pEntry, EntryData pData)
-    {
-        tabData.RemoveEntry(pData);
-        entries.Remove(pEntry);
-        entryParent.Remove(pEntry.Root);
-    }
-
-    private void PressedAddEntry()
-    {
-        Hide();
-
-        EntryEditor entryEditor = new EntryEditor();
-        entryEditor.Show(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange);
-    }
+    private void PressedAddEntry() => ShowOtherLayout(new EntryEditor(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange));
 
     private void OnSaveNewEntry(EntryData pOld, EntryData pNew)
     {
@@ -123,12 +131,40 @@ public class EntrySelection : UILayout
         ShowOtherLayout(new EntrySelection(tabName));
     }
 
+    private void PressedBack() => ShowOtherLayout(new TabSelection());
 
-    private void PressedBack()
+    private void PressedSelectAll()
     {
-        Hide();
+        selectionTracker.SetAllSelected(true);
+        menu.CloseMenu();
+    }
 
-        TabSelection tabSelection = new TabSelection();
-        tabSelection.Show();
+    private void PressedDelete()
+    {
+        string title = "Delete entries?";
+        string message = "This is going to delete the selected entries permanently. Do yo wish to continue?";
+        string positive = "Delete";
+        string negative = "Cancel";
+        Extensions.ShowConfirmDialog(DeleteSelectedEntries, null, title, message, positive, negative);
+    }
+
+    private void DeleteSelectedEntries()
+    {
+        foreach (SelectableElement element in selectionTracker.Selection.ToList())
+        {
+            PingEntry entry = (PingEntry)element;
+            entries.Remove(entry);
+            selectionTracker.RemoveElement(entry);
+            entryParent.Remove(entry.Root);
+            // TODO: Delete entry from tab data
+            Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
+        }
+    }
+
+    private void OnSelectionChange()
+    {
+        buttonAddEntry.style.display = selectionTracker.HasSelection ? DisplayStyle.None : DisplayStyle.Flex;
+        menu.SetMenuItemVisible(menuDelete, selectionTracker.HasSelection);
+        menu.SetMenuItemVisible(menuSelect, !selectionTracker.FullySelected);
     }
 }

@@ -113,22 +113,13 @@ public class EditableText : SelectableElement
         set
         {
             selectElement.ShowIndicator = value;
-
-            if (selectElement.ShowIndicator)
-            {
-                buttonDelete.style.display = DisplayStyle.None;
-                buttonEdit.style.display = DisplayStyle.None;
-            }
-            else
-            {
-                UpdateButtonvisiblity();
-            }
+            UpdateButtonvisiblity(selectElement.ShowIndicator);
         }
     }
 
-    private void UpdateButtonvisiblity()
+    private void UpdateButtonvisiblity(bool pShowIndicator = false)
     {
-        buttonDelete.style.display = onDelete == null ? DisplayStyle.None : DisplayStyle.Flex;
-        buttonEdit.style.display = (onEdit == null && connectedInput == null) ? DisplayStyle.None : DisplayStyle.Flex;
+        buttonDelete.style.display = (onDelete == null || pShowIndicator) ? DisplayStyle.None : DisplayStyle.Flex;
+        buttonEdit.style.display = ((onEdit == null && connectedInput == null) || pShowIndicator) ? DisplayStyle.None : DisplayStyle.Flex;
     }
 }

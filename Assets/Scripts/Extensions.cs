@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -77,6 +78,29 @@ namespace Assets.Scripts
             pElement.styleSheets.Add(UiStyleSheets.MenuItem);
             pElement.styleSheets.Add(UiStyleSheets.Checkbox);
             pElement.styleSheets.Add(UiStyleSheets.Texts);
+        }
+
+
+        public static void ShowConfirmDialog(Action pOnPositive, Action pOnNegative, string pTitle, string pMessage, string pPositive, string pNegative)
+        {
+            if (SystemInfo.deviceType == DeviceType.Desktop)
+            {
+                pOnPositive.Invoke();
+                return;
+            }
+
+            Action<bool> callback = (pResult) =>
+            {
+                if (pResult)
+                {
+                    pOnPositive?.Invoke();
+                }
+                else
+                {
+                    pOnNegative?.Invoke();
+                }
+            };
+            NativeToolkit.ShowConfirm(pTitle, pMessage, callback, pPositive, pNegative);
         }
     }
 }

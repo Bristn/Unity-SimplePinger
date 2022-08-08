@@ -26,6 +26,7 @@ public class PingEntryBuilder : MonoBehaviour
     private Action<PingEntry, EntryData> onEdit;
     private Action<PingEntry, EntryData> onDelete;
     private Action<PingEntry, EntryData> onClick;
+    private Action<PingEntry, EntryData> onLongClick;
 
     private PingEntry.PingStatus status;
 
@@ -59,6 +60,12 @@ public class PingEntryBuilder : MonoBehaviour
         return this;
     }
 
+    public PingEntryBuilder OnLongClick(Action<PingEntry, EntryData> pOnLongClick)
+    {
+        onLongClick = pOnLongClick;
+        return this;
+    }
+
     public PingEntryBuilder Status(PingEntry.PingStatus pStatus)
     {
         status = pStatus;
@@ -82,6 +89,7 @@ public class PingEntryBuilder : MonoBehaviour
                 onEdit,
                 onDelete,
                 onClick,
+                onLongClick,
                 status
             );
     }

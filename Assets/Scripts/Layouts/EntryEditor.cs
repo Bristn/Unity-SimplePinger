@@ -30,15 +30,18 @@ public class EntryEditor : UILayout
         FAILURE
     }
 
-    public void Show(EntryData pData, Action<EntryData, EntryData> pOnSave, Action pOnBack)
+    public EntryEditor(EntryData pData, Action<EntryData, EntryData> pOnSave, Action pOnBack)
     {
-        document = Application.EntryEditor;
-        document.enabled = true;
-
         // Assign variables
         onSave = pOnSave;
         onBack = pOnBack;
         dataBefore = pData;
+    }
+
+    public override void Show()
+    {
+        document = Application.EntryEditor;
+        document.enabled = true;
 
         // Assign UI elements
         VisualElement root = document.rootVisualElement;
@@ -49,20 +52,20 @@ public class EntryEditor : UILayout
         inputIp = new InputFieldBuilder()
             .Root(root.Q<VisualElement>("input-ip"))
             .Validator(new AddressValidator())
-            .Value(pData.Host)
+            .Value(dataBefore.Host)
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputIpChanged)
             .Build();
 
         inputName = new InputFieldBuilder()
             .Root(root.Q<VisualElement>("input-name"))
-            .Value(pData.Name)
+            .Value(dataBefore.Name)
             .ValidIconVisiblity(ValidType.INVALID, true)
             .Build();
 
         inputSuffix = new InputFieldBuilder()
             .Root(root.Q<VisualElement>("input-suffix"))
-            .Value(pData.Suffix)
+            .Value(dataBefore.Suffix)
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputSuffixChanged)
             .Build();

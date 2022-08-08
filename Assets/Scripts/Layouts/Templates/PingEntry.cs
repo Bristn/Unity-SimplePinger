@@ -1,9 +1,10 @@
 using Assets.Scripts;
 using System;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PingEntry
+public class PingEntry : SelectableElement
 {
     private VisualElement root;
     private Button rootButton;
@@ -12,13 +13,18 @@ public class PingEntry
     private Label labelStatus;
     private Button buttonEdit;
     private Button buttonDelete;
+    private VisualElement selectionIndicator;
 
     private Action<PingEntry, EntryData> onEdit;
     private Action<PingEntry, EntryData> onDelete;
     private Action<PingEntry, EntryData> onClick;
+    private Action<PingEntry, EntryData> onLongClick;
 
     private EntryData data;
     private PingStatus status;
+
+    private LongClickElement longClickElement;
+    private SelectElement selectElement;
 
     public enum PingStatus
     {
@@ -35,6 +41,7 @@ public class PingEntry
             Action<PingEntry, EntryData> pOnEdit, 
             Action<PingEntry, EntryData> pOnDelete,
             Action<PingEntry, EntryData> pOnClick,
+            Action<PingEntry, EntryData> pOnLongClick,
             PingStatus pStatus
         )
     {
@@ -44,6 +51,7 @@ public class PingEntry
         onEdit = pOnEdit;
         onDelete = pOnDelete;
         onClick = pOnClick;
+        onLongClick = pOnLongClick; // TODO: Fix & Implement long click
         data = pData;
         status = pStatus;
 
@@ -52,6 +60,7 @@ public class PingEntry
         labelStatus = root.Q<Label>("label-status");
         buttonEdit = root.Q<Button>("button-edit");
         buttonDelete = root.Q<Button>("button-delete");
+        selectionIndicator = root.Q<VisualElement>("icon-selected");
         Title = pData.Name;
         Status = pStatus;
 
@@ -62,6 +71,10 @@ public class PingEntry
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
+
+        // Selection
+        selectElement = new SelectElement(selectionIndicator);
+        UpdateButtonvisiblity();
     }
 
     private void PressedEdit() => onEdit?.Invoke(this, data);
@@ -139,5 +152,27 @@ public class PingEntry
     private VisualElement[] foreground 
     {
         get => new VisualElement[] { labelTitle, labelStatus, buttonDelete.Children().First(), buttonEdit.Children().First() };
+    }
+
+    public bool Selected
+    {
+        get => selectElement.Selected;
+        set => selectElement.Selected = value;
+    }
+
+    public bool ShowIndicator
+    {
+        get => selectElement.ShowIndicator;
+        set
+        {
+            selectElement.ShowIndicator = value;
+            UpdateButtonvisiblity(selectElement.ShowIndicator);
+        }
+    }
+
+    private void UpdateButtonvisiblity(bool pShowIndicator = false)
+    {
+        buttonDelete.style.display = (onDelete == null || pShowIndicator) ? DisplayStyle.None : DisplayStyle.Flex;
+        buttonEdit.style.display = (onEdit == null || pShowIndicator) ? DisplayStyle.None : DisplayStyle.Flex;
     }
 }
