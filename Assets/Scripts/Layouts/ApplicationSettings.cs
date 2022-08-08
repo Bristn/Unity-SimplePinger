@@ -48,7 +48,7 @@ public class ApplicationSettings : UILayout
 
         // Create menu
         MenuItem itemBack = new MenuItemBuilder()
-            .Icon(MenuItemBuilder.IconBack)
+            .Icon(UiIcons.MenuBack)
             .OnClick(PressedBack)
             .Build();
 

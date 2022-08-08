@@ -447,10 +447,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 9197481963319205126, guid: e64f735df62af814083ebbe99bccc14e, type: 3}
-  iconMore: {fileID: 7388822144124034973, guid: 6d68eff5f9d13204da909e59016f121c, type: 3}
-  iconBack: {fileID: 7388822144124034973, guid: 44644d10de3e7734ab4e0cd78ec94213, type: 3}
-  iconDelete: {fileID: 7388822144124034973, guid: bbe6baf70a334434bb59d0e200c3dbbe, type: 3}
-  styleSheetMenu: {fileID: 7433441132597879392, guid: f6c34aac944d8a0458d60905fd2fefb7, type: 3}
 --- !u!4 &1044997575
 Transform:
   m_ObjectHideFlags: 0
@@ -574,6 +570,7 @@ GameObject:
   - component: {fileID: 1812852379}
   - component: {fileID: 1812852380}
   - component: {fileID: 1812852381}
+  - component: {fileID: 1812852382}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -684,7 +681,29 @@ MonoBehaviour:
   inputFieldValid: {fileID: 7388822144124034973, guid: 769e243b4f39bb543a1fa64168d46f7d, type: 3}
   inputFieldInvalid: {fileID: 7388822144124034973, guid: e4840dd21cfc5a54cafe54bc7eab692b, type: 3}
   selectionActive: {fileID: 7388822144124034973, guid: 769e243b4f39bb543a1fa64168d46f7d, type: 3}
-  selectionInactive: {fileID: 7388822144124034973, guid: 111df2802b897a8459a4480433fa939b, type: 3}
+  selectionInactive: {fileID: 7388822144124034973, guid: 72a3f13d7f5319f4fb5b3ce618a0fbb4, type: 3}
+  menuMore: {fileID: 7388822144124034973, guid: 6d68eff5f9d13204da909e59016f121c, type: 3}
+  menuBack: {fileID: 7388822144124034973, guid: 44644d10de3e7734ab4e0cd78ec94213, type: 3}
+  menuDelete: {fileID: 7388822144124034973, guid: bbe6baf70a334434bb59d0e200c3dbbe, type: 3}
+--- !u!114 &1812852382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812852373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff24200a2ef1af488c6ca29f0574d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors: {fileID: 7433441132597879392, guid: 6fa211931b7b6ef408e5195358f0c0ae, type: 3}
+  radius: {fileID: 7433441132597879392, guid: 0e19d20c4d1a22d40bfed8b27bdc70d1, type: 3}
+  buttons: {fileID: 7433441132597879392, guid: 99dbb205bf4343840b8847683c5eeaa9, type: 3}
+  borders: {fileID: 7433441132597879392, guid: c055e3b7a080d714f9e2d8982048149c, type: 3}
+  texts: {fileID: 7433441132597879392, guid: 23d65dc7f3c3f8e4c8a22707b1370d0b, type: 3}
+  menuItem: {fileID: 7433441132597879392, guid: f6c34aac944d8a0458d60905fd2fefb7, type: 3}
+  checkbox: {fileID: 7433441132597879392, guid: 317574a161afe484e850b53e4dc9b1d8, type: 3}
 --- !u!1 &1978585283
 GameObject:
   m_ObjectHideFlags: 0

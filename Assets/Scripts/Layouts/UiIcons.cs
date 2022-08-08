@@ -33,4 +33,19 @@ public class UiIcons : MonoBehaviour
     public static VectorImage SelectionActive => instance.selectionActive;
 
     public static VectorImage SelectionInactive => instance.selectionInactive;
+
+
+    [Header("Menu")]
+
+    [SerializeField] private VectorImage menuMore;
+
+    [SerializeField] private VectorImage menuBack;
+
+    [SerializeField] private VectorImage menuDelete;
+
+    public static VectorImage MenuMore => instance.menuMore;
+
+    public static VectorImage MenuBack => instance.menuBack;
+
+    public static VectorImage MenuDelete => instance.menuDelete;
 }

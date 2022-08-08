@@ -1,14 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
-    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
-    <ui:VisualElement class="background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1; background-color: rgb(47, 54, 64);">
+    <Style src="project://database/Assets/UI/Styles/Colors.uss?fileID=7433441132597879392&amp;guid=6fa211931b7b6ef408e5195358f0c0ae&amp;type=3#Colors" />
+    <Style src="project://database/Assets/UI/Styles/Buttons.uss?fileID=7433441132597879392&amp;guid=99dbb205bf4343840b8847683c5eeaa9&amp;type=3#Buttons" />
+    <Style src="project://database/Assets/UI/Styles/Radius.uss?fileID=7433441132597879392&amp;guid=0e19d20c4d1a22d40bfed8b27bdc70d1&amp;type=3#Radius" />
+    <ui:VisualElement class="color-background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1;">
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="width: 100%;">
-            <ui:VisualElement name="entry-parent" style="flex-grow: 1; align-items: center;">
-                <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-add-entry" class="button-base rounded-corners button-positive" style="padding-right: 20px; padding-left: 20px; flex-direction: row;">
-                    <ui:VisualElement class="foreground-on-positive" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Plus.svg?fileID=7388822144124034973&amp;guid=f06396a202962784c9202610a2f1e1f9&amp;type=3#Plus&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                    <ui:Label text="Add entry" display-tooltip-when-elided="true" class="text-regular foreground-on-positive" style="margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-                </ui:Button>
-            </ui:VisualElement>
+            <ui:VisualElement name="entry-parent" style="flex-grow: 1; align-items: center;" />
         </ui:ScrollView>
+        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-add-entry" class="button-base floating-action-button radius-full color-background-positive" style="padding-right: 20px; padding-left: 20px; flex-direction: row;">
+            <ui:VisualElement class="color-foreground-on-positive" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/UI/Icons/Plus.svg?fileID=7388822144124034973&amp;guid=f06396a202962784c9202610a2f1e1f9&amp;type=3#Plus&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

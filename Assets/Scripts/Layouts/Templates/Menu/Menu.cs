@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,9 @@ public class Menu : UILayout
         {
             AddMenuItem(pair.Key, pair.Value);
         }
+
+        // Add style sheet & classes
+        root.AddAllStyleSheets();
 
         // Update visuals
         Text = pText;
@@ -79,7 +83,7 @@ public class Menu : UILayout
             if (itemShowMenu == null)
             {
                 itemShowMenu = new MenuItemBuilder()
-                    .Icon(MenuItemBuilder.IconMore)
+                    .Icon(UiIcons.MenuMore)
                     .OnClick(PressedShowMore)
                     .Build();
 

@@ -10,7 +10,7 @@
     width: 50px;
     height: 20px;
     flex-shrink: 0;
-    background-color: rgb(171, 101, 120);
+    background-color: rgb(160, 77, 94);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -24,7 +24,7 @@
     width: 50px;
     height: 20px;
     flex-shrink: 0;
-    background-color: rgb(166, 191, 240);
+    background-color: rgb(79, 108, 165);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -38,7 +38,7 @@
     width: 30px;
     height: 30px;
     flex-shrink: 0;
-    background-color: rgb(255, 107, 129);
+    background-color: rgb(197, 86, 103);
     border-top-left-radius: 100%;
     border-bottom-left-radius: 100%;
     border-top-right-radius: 100%;
@@ -53,7 +53,7 @@
     width: 30px;
     height: 30px;
     flex-shrink: 0;
-    background-color: rgb(112, 161, 255);
+    background-color: rgb(90, 127, 197);
     border-top-left-radius: 100%;
     border-bottom-left-radius: 100%;
     border-top-right-radius: 100%;

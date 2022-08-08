@@ -59,6 +59,9 @@ public class PingEntry
         buttonEdit.clicked += PressedEdit;
         buttonDelete.clicked += PressedDelete;
         rootButton.clicked += PressedItem;
+
+        // Add style sheet & classes
+        root.AddAllStyleSheets();
     }
 
     private void PressedEdit() => onEdit?.Invoke(this, data);
@@ -109,25 +112,25 @@ public class PingEntry
             if (status == PingStatus.INACTIVE)
             {
                 labelStatus.text = "Incative";
-                SetButtonClass("button-neutral");
+                rootButton.SetBackgroundClass(StyleClasses.Background.NEUTRAL);
                 StyleClasses.SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL, foreground);
             }
             else if (status == PingStatus.CONNECTING)
             {
                 labelStatus.text = "Connecting...";
-                SetButtonClass("button-neutral");
+                rootButton.SetBackgroundClass(StyleClasses.Background.NEUTRAL);
                 StyleClasses.SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL, foreground);
             }
             else if (status == PingStatus.SUCCESS)
             {
                 labelStatus.text = "Success" + codeSuffix;
-                SetButtonClass("button-positive");
+                rootButton.SetBackgroundClass(StyleClasses.Background.POSITIVE);
                 StyleClasses.SetForegroundClass(StyleClasses.Foreground.ON_POSITIVE, foreground);
             }
             else if (status == PingStatus.FAILURE)
             {
                 labelStatus.text = "Failed" + codeSuffix;
-                SetButtonClass("button-negative");
+                rootButton.SetBackgroundClass(StyleClasses.Background.NEGATIVE);
                 StyleClasses.SetForegroundClass(StyleClasses.Foreground.ON_NEGATIVE, foreground);
             }
         }
@@ -136,13 +139,5 @@ public class PingEntry
     private VisualElement[] foreground 
     {
         get => new VisualElement[] { labelTitle, labelStatus, buttonDelete.Children().First(), buttonEdit.Children().First() };
-    }
-
-    private void SetButtonClass(string pActiveClass)
-    {
-        rootButton.RemoveFromClassList("button-positive");
-        rootButton.RemoveFromClassList("button-negative");
-        rootButton.RemoveFromClassList("button-neutral");
-        rootButton.AddToClassList(pActiveClass);
     }
 }

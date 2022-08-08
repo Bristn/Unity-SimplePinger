@@ -74,12 +74,15 @@ public class InputField
         buttonDiscard.clicked += PressedDisacrd;
         textField.RegisterValueChangedCallback(value => ChangedValue(value.newValue));
 
+        // Add style sheet & classes
+        root.AddAllStyleSheets();
+
         // Apply style (not possible in editor GUI to style children of unity prefabs)
         textField.Children().First().style.marginLeft = 0;
         textField.Children().First().style.backgroundColor = new StyleColor(new Color(1, 1, 1, 0));
         textField.Children().First().SetBorderWidth(0);
         textField.Children().First().SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL);
-        textField.Children().First().AddToClassList("text-regular");
+        textField.Children().First().AddToClassList("text-size-regular");
     }
 
     private void PressedSave()

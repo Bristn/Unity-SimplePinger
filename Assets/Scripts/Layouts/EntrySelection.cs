@@ -42,7 +42,7 @@ public class EntrySelection : UILayout
 
         // Create menu
         MenuItem itemBack = new MenuItemBuilder()
-           .Icon(MenuItemBuilder.IconBack)
+           .Icon(UiIcons.MenuBack)
            .OnClick(PressedBack)
            .Build();
 
@@ -66,7 +66,7 @@ public class EntrySelection : UILayout
             .OnEdit(PressedEditEntry)
             .OnDelete(PressedDeleteEntry)
             .Build();
-        entryParent.Insert(entryParent.childCount - 1, entry.Root);
+        entryParent.Add(entry.Root);
 
         return entry;
     }

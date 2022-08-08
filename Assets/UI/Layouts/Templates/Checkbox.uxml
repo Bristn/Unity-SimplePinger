@@ -1,8 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
-    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
-    <Style src="project://database/Assets/Checkbox.uss?fileID=7433441132597879392&amp;guid=317574a161afe484e850b53e4dc9b1d8&amp;type=3#Checkbox" />
-    <ui:Toggle focusable="true" value="true" text="Show response code" name="root" class="rounded-corners background-neutral" style="height: 60px; width: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px;" />
+    <Style src="project://database/Assets/UI/Styles/Checkbox.uss?fileID=7433441132597879392&amp;guid=317574a161afe484e850b53e4dc9b1d8&amp;type=3#Checkbox" />
+    <Style src="project://database/Assets/UI/Styles/Colors.uss?fileID=7433441132597879392&amp;guid=6fa211931b7b6ef408e5195358f0c0ae&amp;type=3#Colors" />
+    <Style src="project://database/Assets/UI/Styles/Buttons.uss?fileID=7433441132597879392&amp;guid=99dbb205bf4343840b8847683c5eeaa9&amp;type=3#Buttons" />
+    <Style src="project://database/Assets/UI/Styles/Radius.uss?fileID=7433441132597879392&amp;guid=0e19d20c4d1a22d40bfed8b27bdc70d1&amp;type=3#Radius" />
+    <ui:Toggle focusable="true" value="true" text="Show response code" name="root" class="radius-partly color-background-neutral button-base" style="height: 60px; width: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px;" />
     <ui:VisualElement class="checkbox-parent" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; height: 30px; display: none;">
         <ui:VisualElement class="checkbox-background" />
         <ui:VisualElement class="checkbox-dot" />

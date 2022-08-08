@@ -1,26 +1,25 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="InputField" src="project://database/Assets/Layouts/Templates/InputField.uxml?fileID=9197481963319205126&amp;guid=79d60d222d61d2a40b331a1f06669357&amp;type=3#InputField" />
-    <Style src="project://database/Assets/PingerStyle.uss?fileID=7433441132597879392&amp;guid=94359c176042ba44fa00a3a809babf99&amp;type=3#PingerStyle" />
-    <Style src="project://database/Assets/StylesIcons.uss?fileID=7433441132597879392&amp;guid=f79bc15fb163bdf43b7a64a36ad0d500&amp;type=3#StylesIcons" />
-    <ui:VisualElement class="background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1; background-color: rgb(47, 54, 64);">
+    <ui:Template name="InputField" src="project://database/Assets/UI/Layouts/Templates/InputField.uxml?fileID=9197481963319205126&amp;guid=79d60d222d61d2a40b331a1f06669357&amp;type=3#InputField" />
+    <Style src="project://database/Assets/UI/Styles/Colors.uss?fileID=7433441132597879392&amp;guid=6fa211931b7b6ef408e5195358f0c0ae&amp;type=3#Colors" />
+    <Style src="project://database/Assets/UI/Styles/Buttons.uss?fileID=7433441132597879392&amp;guid=99dbb205bf4343840b8847683c5eeaa9&amp;type=3#Buttons" />
+    <ui:VisualElement class="color-background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1;">
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="width: 100%;">
             <ui:VisualElement style="flex-grow: 1; align-items: center; flex-shrink: 0;">
                 <ui:Instance template="InputField" name="input-ip" style="width: 100%; flex-shrink: 0;" />
                 <ui:VisualElement style="flex-direction: row; flex-shrink: 0;">
-                    <ui:Label text="Status:" display-tooltip-when-elided="true" class="text-small foreground-on-neutral" style="margin-left: 0; margin-right: 5px; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-                    <ui:Label text="Label" display-tooltip-when-elided="true" name="label-status" class="text-small foreground-positive" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:Label text="Status:" display-tooltip-when-elided="true" class="text-small color-foreground-on-dark" style="margin-left: 0; margin-right: 5px; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="label-status" class="text-small color-foreground-positive" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
                 </ui:VisualElement>
                 <ui:Instance template="InputField" name="input-name" style="width: 100%; flex-shrink: 0;" />
                 <ui:Instance template="InputField" name="input-suffix" style="width: 100%; flex-shrink: 0;" />
                 <ui:VisualElement style="flex-direction: row; flex-shrink: 0;">
-                    <ui:Label text="Full URL:" display-tooltip-when-elided="true" class="text-small foreground-on-neutral" style="margin-left: 0; margin-right: 5px; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-                    <ui:Label text="Label" display-tooltip-when-elided="true" name="label-address" class="text-small foreground-positive" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:Label text="Full URL:" display-tooltip-when-elided="true" class="text-small color-foreground-on-dark" style="margin-left: 0; margin-right: 5px; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="label-address" class="text-small color-foreground-positive" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
                 </ui:VisualElement>
-                <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-save-entry" class="button-base rounded-corners button-positive" style="padding-right: 20px; padding-left: 20px; flex-direction: row;">
-                    <ui:VisualElement class="foreground-on-positive" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/Icons/Save.svg?fileID=7388822144124034973&amp;guid=ec16c1c51b6a11e42a36fa50f7f70a3a&amp;type=3#Save&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                    <ui:Label text="Save entry" display-tooltip-when-elided="true" enable-rich-text="true" class="text-regular foreground-on-positive" style="margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-                </ui:Button>
             </ui:VisualElement>
         </ui:ScrollView>
+        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-save-entry" class="button-base floating-action-button color-background-positive" style="padding-right: 20px; padding-left: 20px; flex-direction: row;">
+            <ui:VisualElement class="color-foreground-on-positive" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/UI/Icons/Save.svg?fileID=7388822144124034973&amp;guid=ec16c1c51b6a11e42a36fa50f7f70a3a&amp;type=3#Save&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

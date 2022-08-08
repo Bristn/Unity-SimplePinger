@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,10 +42,7 @@ public class MenuItem
         rootButton.clicked += PressedItem;
 
         // Add style sheet & classes
-        root.styleSheets.Add(MenuItemBuilder.StyleSheetMenu);
-        root.AddToClassList("menu-item-text");
-        root.AddToClassList("menu-item-icon");
-        root.AddToClassList("menu-no-border");
+        root.AddAllStyleSheets();
 
         // Update visuals
         Text = pText;

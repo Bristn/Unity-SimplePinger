@@ -41,7 +41,7 @@ public class TabSelection : UILayout
 
         // Create menu
         menuDelete = new MenuItemBuilder()
-            .Icon(MenuItemBuilder.IconDelete)
+            .Icon(UiIcons.MenuDelete)
             .OnClick(PressedDelete)
             .Build();
 

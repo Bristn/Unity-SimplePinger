@@ -59,6 +59,9 @@ public class EditableText : SelectableElement
         buttonDelete.clicked += PressedDelete;
         // buttonDelete.clicked += longClickElement.Reset;
 
+        // Add style sheet & classes
+        root.AddAllStyleSheets();
+
         // Selection
         selectElement = new SelectElement(selectionIndicator);
         UpdateButtonvisiblity();

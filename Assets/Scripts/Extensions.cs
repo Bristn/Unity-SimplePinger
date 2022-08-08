@@ -63,5 +63,20 @@ namespace Assets.Scripts
             pElement.style.borderTopWidth = pWidth;
             pElement.style.borderBottomWidth = pWidth;
         }
+
+
+        /// <summary>
+        /// Adds all stylesheets
+        /// </summary>
+        public static void AddAllStyleSheets(this VisualElement pElement)
+        {
+            pElement.styleSheets.Add(UiStyleSheets.Colors);
+            pElement.styleSheets.Add(UiStyleSheets.Radius);
+            pElement.styleSheets.Add(UiStyleSheets.Buttons);
+            pElement.styleSheets.Add(UiStyleSheets.Borders);
+            pElement.styleSheets.Add(UiStyleSheets.MenuItem);
+            pElement.styleSheets.Add(UiStyleSheets.Checkbox);
+            pElement.styleSheets.Add(UiStyleSheets.Texts);
+        }
     }
 }

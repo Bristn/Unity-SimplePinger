@@ -1,0 +1,7 @@
+.text-size-regular {
+    font-size: 20px;
+}
+
+.text-size-small {
+    font-size: 16px;
+}

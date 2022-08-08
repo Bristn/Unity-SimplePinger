@@ -1,7 +1,80 @@
+:root {
+    --color-dark: rgb(25, 25, 25);
+    --color-negative: rgb(197, 86, 103);
+    --color-positive: rgb(90, 127, 197);
+    --color-neutral:  rgb(47, 53, 66);
+
+    --color-on-dark: rgb(164, 176, 190);
+    --color-on-negative: rgb(25, 25, 25);
+    --color-on-positive: rgb(25, 25, 25);
+    --color-on-neutral:  rgb(164, 176, 190);
+}
+
+
+
+
 .color-background-dark {
-    background-color: rgb(25, 25, 25);
+    background-color: var(--color-dark);
+}
+
+.color-background-negative {
+    background-color: var(--color-negative);
 }
 
 .color-background-positive {
-    background-color: rgb(90, 127, 197);
+    background-color: var(--color-positive);
+}
+
+.color-background-neutral {
+    background-color: var(--color-neutral);
+}
+
+
+
+
+.color-foreground-on-dark {
+    -unity-background-image-tint-color: var(--color-on-dark);
+    color: var(--color-on-dark);
+}
+
+.color-foreground-on-neutral {
+    -unity-background-image-tint-color: var(--color-on-neutral);
+    color: var(--color-on-neutral);
+}
+
+.color-foreground-on-positive {
+    -unity-background-image-tint-color: var(--color-on-positive);
+    color: var(--color-on-positive);
+}
+
+.color-foreground-on-negative {
+    -unity-background-image-tint-color: var(--color-on-negative);
+    color: var(--color-on-negative);
+}
+
+.color-foreground-negative {
+    -unity-background-image-tint-color: var(--color-negative);
+    color: var(--color-negative);
+}
+
+.color-foreground-positive {
+    -unity-background-image-tint-color: var(--color-positive);
+    color: var(--color-positive);
+}
+
+
+
+
+.color-border-negative {
+    border-left-color: var(--color-negative);
+    border-right-color: var(--color-negative);
+    border-top-color: var(--color-negative);
+    border-bottom-color: var(--color-negative);
+}
+
+.color-border-positive {
+    border-left-color: var(--color-positive);
+    border-right-color: var(--color-positive);
+    border-top-color: var(--color-positive);
+    border-bottom-color: var(--color-positive);
 }

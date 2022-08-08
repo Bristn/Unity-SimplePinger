@@ -10,25 +10,12 @@ public class MenuItemBuilder : MonoBehaviour
     private static MenuItemBuilder instance;
 
     [SerializeField] private VisualTreeAsset prefab;
-    [SerializeField] private VectorImage iconMore;
-    [SerializeField] private VectorImage iconBack;
-    [SerializeField] private VectorImage iconDelete;
-    [SerializeField] private StyleSheet styleSheetMenu;
-
     private void Awake()
     {
         instance = this;
     }
 
     public static VisualTreeAsset Prefab => instance.prefab;
-
-    public static VectorImage IconMore => instance.iconMore;
-
-    public static VectorImage IconBack => instance.iconBack;
-
-    public static VectorImage IconDelete => instance.iconDelete;
-
-    public static StyleSheet StyleSheetMenu => instance.styleSheetMenu;
 
 
     // Actual builder pattern
