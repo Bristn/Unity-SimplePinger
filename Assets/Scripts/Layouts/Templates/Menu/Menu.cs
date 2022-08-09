@@ -151,7 +151,10 @@ public class Menu : UILayout
             }
         }
 
-        itemShowMenu.Root.style.display = DisplayStyle.None;
+        if (itemShowMenu != null)
+        {
+            itemShowMenu.Root.style.display = DisplayStyle.None;
+        }
     }
 
     private void PressedShowMore()
