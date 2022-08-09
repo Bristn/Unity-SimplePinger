@@ -95,6 +95,7 @@ public class TabSelection : UILayout
             .OnDiscard(OnDiscardNewTab)
             .InvalidValues(tabNames)
             .Value(string.Empty)
+            .Placeholder("Enter tab name ...")
             .Build();
 
         tabParent.Add(input.Root);
@@ -115,6 +116,7 @@ public class TabSelection : UILayout
             .DiscardButtonVisiblity(ValidType.INVALID, true)
             .OnSave(OnChangeTab)
             .InvalidValues(tabNames)
+            .Placeholder("Enter tab name ...")
             .Build();
 
         entry.SetConnectedInput(input);

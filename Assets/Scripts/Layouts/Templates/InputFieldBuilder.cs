@@ -24,7 +24,8 @@ public class InputFieldBuilder : MonoBehaviour
     private CustomValidator validator = null;
     private List<string> invalidValues = new List<string>();
 
-    private string value = "";
+    private string value = string.Empty;
+    private string placeholder = string.Empty;
 
     private Dictionary<InputField.ValidType, bool> validIconVisiblity = new Dictionary<InputField.ValidType, bool>();
     private Dictionary<InputField.ValidType, bool> saveButtonVisiblity = new Dictionary<InputField.ValidType, bool>();
@@ -101,6 +102,12 @@ public class InputFieldBuilder : MonoBehaviour
         return this;
     }
 
+    public InputFieldBuilder Placeholder(string pPlaceholder)
+    {
+        placeholder = pPlaceholder;
+        return this;
+    }
+
 
     // Build
     public InputField Build()
@@ -131,7 +138,8 @@ public class InputFieldBuilder : MonoBehaviour
                 discardButtonVisiblity,
                 onSave,
                 onDiscard,
-                onChange
+                onChange,
+                placeholder
             );
     }
 }

@@ -55,12 +55,14 @@ public class EntryEditor : UILayout
             .Value(dataBefore.Host)
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputIpChanged)
+            .Placeholder("Enter host address ...")
             .Build();
 
         inputName = new InputFieldBuilder()
             .Root(root.Q<VisualElement>("input-name"))
             .Value(dataBefore.Name)
             .ValidIconVisiblity(ValidType.INVALID, true)
+            .Placeholder("Enter entry name ...")
             .Build();
 
         inputSuffix = new InputFieldBuilder()
@@ -68,6 +70,7 @@ public class EntryEditor : UILayout
             .Value(dataBefore.Suffix)
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputSuffixChanged)
+            .Placeholder("Enter suffix ...")
             .Build();
 
         // Assign UI Actions

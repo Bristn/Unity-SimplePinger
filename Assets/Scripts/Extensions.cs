@@ -65,6 +65,17 @@ namespace Assets.Scripts
             pElement.style.borderBottomWidth = pWidth;
         }
 
+        /// <summary>
+        /// Sets all four paddings to the same value. Reduces amount of similar lines of code
+        /// </summary>
+        public static void SetPadding(this VisualElement pElement, int pPadding)
+        {
+            pElement.style.paddingRight = pPadding;
+            pElement.style.paddingLeft = pPadding;
+            pElement.style.paddingTop = pPadding;
+            pElement.style.paddingBottom = pPadding;
+        }
+
 
         /// <summary>
         /// Adds all stylesheets

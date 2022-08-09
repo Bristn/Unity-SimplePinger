@@ -14,6 +14,8 @@ public class InputField
 
     private string lastValidValue = "";
     private string fromValue;
+    private string placeholderValue;
+    private bool hasFocus;
 
     private Dictionary<ValidType, bool> validIconVisiblity = new Dictionary<ValidType, bool>();
     private Dictionary<ValidType, bool> saveButtonVisiblity = new Dictionary<ValidType, bool>();
@@ -23,6 +25,7 @@ public class InputField
     private VisualElement iconValid;
     private Button buttonSave;
     private Button buttonDiscard;
+    private Label textPlaceholder;
 
     private Action<InputField, string, string> onSave = null;
     private Action<InputField> onDiscard = null;
@@ -47,7 +50,8 @@ public class InputField
             Dictionary<ValidType, bool> pDiscardButtonVis,
             Action<InputField, string, string> pOnSave,
             Action<InputField> pOnDiscard,
-            Action<string, bool> pOnChange
+            Action<string, bool> pOnChange,
+            string pPlaceholderValue
         )
     {
         // Assign variables
@@ -67,18 +71,29 @@ public class InputField
         textField = root.Q<TextField>("text-field");
         buttonSave = root.Q<Button>("button-save");
         buttonDiscard = root.Q<Button>("button-discard");
+        textPlaceholder = root.Q<Label>("text-placeholder");
         Value = pValue;
+        PlaceholderValue = pPlaceholderValue;
 
         // Assign button actions
         buttonSave.clicked += PressedSave;
         buttonDiscard.clicked += PressedDisacrd;
         textField.RegisterValueChangedCallback(value => ChangedValue(value.newValue));
 
+        Action<bool> focusChanged = (value) =>
+        {
+            hasFocus = value;
+            UpdatePlaceholder();
+        };
+        textField.RegisterCallback<FocusInEvent>((e) => focusChanged.Invoke(true));
+        textField.RegisterCallback<FocusOutEvent>((e) => focusChanged.Invoke(false));
+
         // Add style sheet & classes
         root.AddAllStyleSheets();
 
         // Apply style (not possible in editor GUI to style children of unity prefabs)
-        textField.Children().First().style.marginLeft = 0;
+        textField.Children().First().style.marginLeft = 20;
+        textField.Children().First().SetPadding(0);
         textField.Children().First().style.backgroundColor = new StyleColor(new Color(1, 1, 1, 0));
         textField.Children().First().SetBorderWidth(0);
         textField.Children().First().SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL);
@@ -139,6 +154,7 @@ public class InputField
             buttonDiscard.style.display = buttondiscardVis ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
+        UpdatePlaceholder();
         onChange?.Invoke(pValue, isValid);
     }
 
@@ -162,10 +178,25 @@ public class InputField
         }
     }
 
+
+    public string PlaceholderValue
+    {
+        get => placeholderValue;
+        set
+        {
+            placeholderValue = value;
+            textPlaceholder.text = placeholderValue;
+            UpdatePlaceholder();
+        }
+    }
+
+    private void UpdatePlaceholder()
+    {
+        bool showPlaceholder = (textField.value == string.Empty || textField.value.Length == 0) && !hasFocus;
+        textPlaceholder.style.display = showPlaceholder ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
     public VisualElement Root => root;
 
-    public void SetConnectedText(EditableText pConnectedText)
-    {
-        connectedText = pConnectedText;
-    }
+    public void SetConnectedText(EditableText pConnectedText) => connectedText = pConnectedText;
 }
