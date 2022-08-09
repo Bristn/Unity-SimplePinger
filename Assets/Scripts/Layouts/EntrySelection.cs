@@ -44,14 +44,6 @@ public class EntrySelection : UILayout
         // Assign UI Actions
         buttonAddEntry.clicked += PressedAddEntry;
 
-        // Draw the ping entries
-        foreach (EntryData data in tabData.Entries)
-        {
-            PingEntry entry = GetNewPingEntry(data);
-            entries.Add(entry);
-            selectionTracker.AddElement(entry);
-        }
-
         // Create menu
         menuBack = new MenuItemBuilder()
             .Icon(UiIcons.MenuBack)
@@ -78,6 +70,15 @@ public class EntrySelection : UILayout
             .Build();
 
         root.Add(menu.Root);
+
+        // Draw the ping entries
+        foreach (EntryData data in tabData.Entries)
+        {
+            PingEntry entry = GetNewPingEntry(data);
+            entries.Add(entry);
+            selectionTracker.AddElement(entry);
+        }
+        OnSelectionChange();
 
         // Save opened tab to settings
         SettingsData.Settings.LastTab = tabName;
