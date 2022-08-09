@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
@@ -27,9 +28,17 @@ public class Application : MonoBehaviour
     [SerializeField] private StyleSheet styleCheckbox;
     public static StyleSheet StyleCheckbox => Instance.styleCheckbox;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
+    public static void UpdateStatusBar()
+    {
+        ApplicationChrome.dimmed = false;
+        ApplicationChrome.statusBarState = ApplicationChrome.States.TranslucentOverContent;
+        ApplicationChrome.navigationBarState = ApplicationChrome.States.Visible;
+        ApplicationChrome.statusBarColor = 0x00000000;
+    }
+
     void Start()
     {
-       
         TabPersistence.ImportTab();
 
         Screen.fullScreen = false;
