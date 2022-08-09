@@ -52,7 +52,6 @@ public class EditableText : SelectableElement
 
         // Assign button actions
         longClickElement = new LongClickElement(root, PressedItem, PressedItemLong, longClickDuration);
-
         buttonEdit.clicked += PressedEdit;
         buttonEdit.clicked += longClickElement.Reset;
         buttonDelete.clicked += PressedDelete;

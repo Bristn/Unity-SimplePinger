@@ -22,13 +22,12 @@ public class PingEntryBuilder : MonoBehaviour
     // Actual builder pattern
     private VisualElement root;
     private EntryData data;
-
     private Action<PingEntry, EntryData> onEdit;
     private Action<PingEntry, EntryData> onDelete;
     private Action<PingEntry, EntryData> onClick;
     private Action<PingEntry, EntryData> onLongClick;
-
     private PingEntry.PingStatus status;
+    private float longClickDuration = 0.5f;
 
     public PingEntryBuilder Root(VisualElement pRoot)
     {
@@ -72,6 +71,12 @@ public class PingEntryBuilder : MonoBehaviour
         return this;
     }
 
+    public PingEntryBuilder LongClickduration(float pLongclickDuration)
+    {
+        longClickDuration = pLongclickDuration;
+        return this;
+    }
+
 
     // Build
     public PingEntry Build()
@@ -90,7 +95,8 @@ public class PingEntryBuilder : MonoBehaviour
                 onDelete,
                 onClick,
                 onLongClick,
-                status
+                status,
+                longClickDuration
             );
     }
 }

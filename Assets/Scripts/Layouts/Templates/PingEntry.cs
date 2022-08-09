@@ -15,13 +15,13 @@ public class PingEntry : SelectableElement
     private Button buttonDelete;
     private VisualElement selectionIndicator;
 
+    private EntryData data;
     private Action<PingEntry, EntryData> onEdit;
     private Action<PingEntry, EntryData> onDelete;
     private Action<PingEntry, EntryData> onClick;
     private Action<PingEntry, EntryData> onLongClick;
-
-    private EntryData data;
     private PingStatus status;
+    private float longClickDuration;
 
     private LongClickElement longClickElement;
     private SelectElement selectElement;
@@ -42,18 +42,20 @@ public class PingEntry : SelectableElement
             Action<PingEntry, EntryData> pOnDelete,
             Action<PingEntry, EntryData> pOnClick,
             Action<PingEntry, EntryData> pOnLongClick,
-            PingStatus pStatus
+            PingStatus pStatus,
+            float pLongClickDuration
         )
     {
         // Assign variables
         root = pRoot.name.Equals("root") ? pRoot : root = pRoot.Q<VisualElement>("root");
         rootButton = (Button)root;
+        data = pData;
         onEdit = pOnEdit;
         onDelete = pOnDelete;
         onClick = pOnClick;
-        onLongClick = pOnLongClick; // TODO: Fix & Implement long click
-        data = pData;
+        onLongClick = pOnLongClick;
         status = pStatus;
+        longClickDuration = pLongClickDuration;
 
         // Assign UI elements
         labelTitle = root.Q<Label>("label-title");
@@ -65,9 +67,12 @@ public class PingEntry : SelectableElement
         Status = pStatus;
 
         // Assign button actions
+        // Assign button actions
+        longClickElement = new LongClickElement(root, PressedItem, PressedItemLong, longClickDuration);
         buttonEdit.clicked += PressedEdit;
+        buttonEdit.clicked += longClickElement.Reset;
         buttonDelete.clicked += PressedDelete;
-        rootButton.clicked += PressedItem;
+        buttonDelete.clicked += longClickElement.Reset;
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
@@ -86,6 +91,14 @@ public class PingEntry : SelectableElement
         if (status == PingStatus.INACTIVE)
         {
             onClick?.Invoke(this, data);
+        }
+    }
+
+    private void PressedItemLong()
+    {
+        if (status == PingStatus.INACTIVE)
+        {
+            onLongClick?.Invoke(this, data);
         }
     }
 
