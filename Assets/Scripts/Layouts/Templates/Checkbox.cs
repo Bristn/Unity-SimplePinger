@@ -59,7 +59,7 @@ public class Checkbox
 
         labelText.style.marginLeft = 10;
         labelText.SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL);
-        labelText.AddToClassList("text-regular");
+        labelText.AddToClassList("text-size-regular");
 
         // Update visuals
         Selected = pSelected;

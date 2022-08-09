@@ -3,6 +3,7 @@
     <Style src="project://database/Assets/UI/Styles/Colors.uss?fileID=7433441132597879392&amp;guid=6fa211931b7b6ef408e5195358f0c0ae&amp;type=3#Colors" />
     <Style src="project://database/Assets/UI/Styles/Buttons.uss?fileID=7433441132597879392&amp;guid=99dbb205bf4343840b8847683c5eeaa9&amp;type=3#Buttons" />
     <Style src="project://database/Assets/UI/Styles/Radius.uss?fileID=7433441132597879392&amp;guid=0e19d20c4d1a22d40bfed8b27bdc70d1&amp;type=3#Radius" />
+    <Style src="project://database/Assets/UI/Styles/Texts.uss?fileID=7433441132597879392&amp;guid=23d65dc7f3c3f8e4c8a22707b1370d0b&amp;type=3#Texts" />
     <ui:Toggle focusable="true" value="true" text="Show response code" name="root" class="radius-partly color-background-neutral button-base" style="height: 60px; width: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 20px;" />
     <ui:VisualElement class="checkbox-parent" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; height: 30px; display: none;">
         <ui:VisualElement class="checkbox-background" />
