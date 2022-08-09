@@ -18,7 +18,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:ScrollView>
-        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-save-entry" class="button-base floating-action-button color-background-positive" style="padding-right: 20px; padding-left: 20px; flex-direction: row;">
+        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="button-save-entry" class="button-base floating-action-button color-background-positive" style="flex-direction: row;">
             <ui:VisualElement class="color-foreground-on-positive" style="width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/UI/Icons/Save.svg?fileID=7388822144124034973&amp;guid=ec16c1c51b6a11e42a36fa50f7f70a3a&amp;type=3#Save&apos;); -unity-background-scale-mode: scale-to-fit;" />
         </ui:Button>
     </ui:VisualElement>

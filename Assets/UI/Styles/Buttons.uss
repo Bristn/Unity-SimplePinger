@@ -8,8 +8,8 @@
 
 .floating-action-button {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 15px;
+    bottom: 15px;
     align-items: center;
     justify-content: center;
     width: 70px;
