@@ -28,7 +28,7 @@ public class LongClickElement
         button.RegisterCallback<PointerDownEvent>(PointerDown, TrickleDown.TrickleDown);
         button.RegisterCallback<PointerUpEvent>(PointerUp, TrickleDown.TrickleDown);
 
-        // Add to Manager
+        // Add to Manager 
         LongClickManager.AddElement(this);
     }
 
@@ -50,8 +50,15 @@ public class LongClickElement
             return;
         }
 
-        onClick?.Invoke();
+        Application.RunAsync(InvokeOnclick());
         Reset();
+    }
+
+    // Invoke action in coroutine. Causes Nullpointerexception in Unity's core Clickable code (Clickable.ContainsPointer)
+    private IEnumerator InvokeOnclick()
+    {
+        yield return null;
+        onClick?.Invoke();
     }
 
     public void Update()

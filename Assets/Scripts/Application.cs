@@ -18,7 +18,7 @@ using static UnityEngine.PlayerLoop.PreUpdate;
 
 public class Application : MonoBehaviour
 {
-    private static Application Instance;
+    public static Application Instance;
 
     [SerializeField] private UIDocument tabSelection;
     [SerializeField] private UIDocument entrySelection;

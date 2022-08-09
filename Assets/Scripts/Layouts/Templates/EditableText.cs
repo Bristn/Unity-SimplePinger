@@ -51,13 +51,12 @@ public class EditableText : SelectableElement
         Value = pValue;
 
         // Assign button actions
-        // longClickElement = new LongClickElement(root, PressedItem, PressedItemLong, longClickDuration);
-        ((Button)root).clicked += PressedItem;
+        longClickElement = new LongClickElement(root, PressedItem, PressedItemLong, longClickDuration);
 
         buttonEdit.clicked += PressedEdit;
-        // buttonEdit.clicked += longClickElement.Reset;
+        buttonEdit.clicked += longClickElement.Reset;
         buttonDelete.clicked += PressedDelete;
-        // buttonDelete.clicked += longClickElement.Reset;
+        buttonDelete.clicked += longClickElement.Reset;
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
@@ -78,8 +77,11 @@ public class EditableText : SelectableElement
     }
 
     private void PressedDelete() => onDelete?.Invoke(this);
-    
-    private void PressedItem() => onClick?.Invoke(this); 
+
+    private void PressedItem()
+    {
+         onClick?.Invoke(this);
+    }
     
     private void PressedItemLong() => onLongClick?.Invoke(this);
 
