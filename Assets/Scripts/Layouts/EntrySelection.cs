@@ -20,7 +20,6 @@ public class EntrySelection : UILayout
     private Menu menu;
     private MenuItem menuDelete;
     private MenuItem menuSelect;
-    private MenuItem menuBack;
 
     public EntrySelection(string pTabName)
     {
@@ -45,12 +44,6 @@ public class EntrySelection : UILayout
         buttonAddEntry.clicked += PressedAddEntry;
 
         // Create menu
-        menuBack = new MenuItemBuilder()
-            .Icon(UiIcons.MenuBack)
-            .OnClick(PressedBack)
-            .IsBackButton(true)
-            .Build();
-
         menuDelete = new MenuItemBuilder()
             .Icon(UiIcons.MenuDelete)
             .OnClick(PressedDelete)
@@ -62,7 +55,7 @@ public class EntrySelection : UILayout
             .Build();
 
         menu = new MenuBuilder()
-            .BackButton(menuBack)
+            .OnClickedBack(PressedBack)
             .MenuItems(menuDelete)
             .MenuItems(menuSelect)
             .Text(tabName)

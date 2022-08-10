@@ -47,13 +47,8 @@ public class ApplicationSettings : UILayout
             .Build();
 
         // Create menu
-        MenuItem itemBack = new MenuItemBuilder()
-            .Icon(UiIcons.MenuBack)
-            .OnClick(PressedBack)
-            .Build();
-
         Menu menu = new MenuBuilder()
-            .MenuItems(itemBack, true)
+            .OnClickedBack(PressedBack)
             .Text("Settings")
             .Build();
 
@@ -63,10 +58,6 @@ public class ApplicationSettings : UILayout
     private void PressedBack()
     {
         Persistence.SaveObjectToJson(SettingsData.Settings, "", Persistence.SETTING_FILE);
-
-        Hide();
-
-        TabSelection tabselection = new TabSelection();
-        tabselection.Show();
+        ShowOtherLayout(new TabSelection());
     }
 }

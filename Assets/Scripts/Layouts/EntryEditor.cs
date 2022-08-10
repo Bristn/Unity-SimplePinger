@@ -77,13 +77,8 @@ public class EntryEditor : UILayout
         buttonSaveEntry.clicked += PressedSaveEntry;
 
         // Create menu
-        MenuItem itemBack = new MenuItemBuilder()
-           .Icon(UiIcons.MenuBack)
-           .OnClick(PressedBack)
-           .Build();
-
         Menu menu = new MenuBuilder()
-            .MenuItems(itemBack, true)
+            .OnClickedBack(PressedBack)
             .Text("Entry editor")
             .Build();
 

@@ -17,11 +17,11 @@ public class Menu : UILayout
     private MenuItem itemShowMenu;
     private HashSet<MenuItem> menuItems = new HashSet<MenuItem>();
     private SelectionTracker selectionTracker;
-    private MenuItem backButton;
+    private MenuBackButton backButton;
     private bool hasBackButton;
+    private Action onBack;
 
-
-    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem,bool> pItems, SelectionTracker pSelectionTracker, MenuItem pBackButton)
+    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem, bool> pItems, SelectionTracker pSelectionTracker, Action pOnBack)
     {
         // Assign UI elements
         root = pRoot.name.Equals("root") ? pRoot : root = pRoot.Q<VisualElement>("root");
@@ -41,18 +41,12 @@ public class Menu : UILayout
         }
 
         // Create back button
-        backButton = pBackButton;
-        hasBackButton = backButton != null;
-        if (backButton == null)
-        {
-            backButton = new MenuItemBuilder()
-                .Icon(UiIcons.MenuBack)
-                .IsBackButton(true)
-                .Build();
-        }
-        ((Button)backButton.Root).clicked += PressedBack;
-        AddMenuItem(backButton, true);
-        SetMenuItemVisible(backButton, hasBackButton);
+        onBack = pOnBack;
+        hasBackButton = onBack != null;
+        backButton = new MenuBackButtonBuilder().Build();
+        backButton.Root.clicked += PressedBack;
+        parentIcon.Insert(0, backButton.Root);
+        backButton.Root.style.display = hasBackButton ? DisplayStyle.Flex : DisplayStyle.None;
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
@@ -72,10 +66,7 @@ public class Menu : UILayout
     public string Text
     {
         get => text;
-        set
-        {
-            labelText.text = value;
-        }
+        set => labelText.text = value;
     }
 
     public void AddMenuItem(MenuItem pItem, bool pIsLeft = false)
@@ -89,7 +80,7 @@ public class Menu : UILayout
         {
             if (pIsLeft)
             {
-                parentIcon.Insert(0, pItem.Root);
+                parentIcon.Insert(1, pItem.Root);
             }
             else
             {
@@ -193,6 +184,6 @@ public class Menu : UILayout
             return;
         }
 
-        backButton.PressedItem();
+        onBack?.Invoke();
     }
 }
