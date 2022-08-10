@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Menu : UILayout
+public class Menu
 {
     private VisualElement root;
     private VisualElement parentIcon;

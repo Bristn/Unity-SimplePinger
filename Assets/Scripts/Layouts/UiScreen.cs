@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class UILayout 
+public abstract class UiScreen 
 {
     protected UIDocument document;
 
-    public virtual void Show()
+    public virtual void Open()
     {
 
     }
 
-    public void Hide()
+    public void Close()
     {
         if (document != null)
         {
@@ -20,9 +20,9 @@ public abstract class UILayout
         }
     }
 
-    public void ShowOtherLayout(UILayout pLayout)
+    public void OpenOtherScreen(UiScreen pLayout)
     {
-        Hide();
-        pLayout.Show();
+        Close();
+        pLayout.Open();
     }
 }

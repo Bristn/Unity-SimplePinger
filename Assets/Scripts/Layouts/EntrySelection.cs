@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
-public class EntrySelection : UILayout
+public class EntrySelection : UiScreen
 {
     private VisualElement entryParent;
     private Button buttonAddEntry;
@@ -26,7 +26,7 @@ public class EntrySelection : UILayout
         tabName = pTabName;
     }
 
-    public override void Show()
+    public override void Open()
     {
         document = Application.EntrySelection;
         document.enabled = true;
@@ -105,29 +105,29 @@ public class EntrySelection : UILayout
 
     private void LongPressedEntry(PingEntry pEntry, EntryData pData) => selectionTracker.SelectElement(pEntry, !pEntry.Selected);
 
-    private void PressedEditEntry(PingEntry pEntry, EntryData pData) => ShowOtherLayout(new EntryEditor(pData, OnChangeEntry, OnDiscardEntryChange));
+    private void PressedEditEntry(PingEntry pEntry, EntryData pData) => OpenOtherScreen(new EntryEditor(pData, OnChangeEntry, OnDiscardEntryChange));
     
     private void OnChangeEntry(EntryData pOld, EntryData pNew)
     {
         tabData.RemoveEntry(pOld);
         tabData.AddEntry(pNew);
         Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
-        ShowOtherLayout(new EntrySelection(tabName));
+        OpenOtherScreen(new EntrySelection(tabName));
     }
 
-    private void OnDiscardEntryChange() => ShowOtherLayout(new EntrySelection(tabName));
+    private void OnDiscardEntryChange() => OpenOtherScreen(new EntrySelection(tabName));
 
-    private void PressedAddEntry() => ShowOtherLayout(new EntryEditor(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange));
+    private void PressedAddEntry() => OpenOtherScreen(new EntryEditor(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange));
 
     private void OnSaveNewEntry(EntryData pOld, EntryData pNew)
     {
         tabData.AddEntry(pNew);
         entries.Add(GetNewPingEntry(pNew));
         Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
-        ShowOtherLayout(new EntrySelection(tabName));
+        OpenOtherScreen(new EntrySelection(tabName));
     }
 
-    private void PressedBack() => ShowOtherLayout(new TabSelection());
+    private void PressedBack() => OpenOtherScreen(new TabSelection());
 
     private void PressedSelectAll()
     {

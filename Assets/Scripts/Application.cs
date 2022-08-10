@@ -56,11 +56,20 @@ public class Application : MonoBehaviour
         // Open correct ui
         if (SettingsData.Settings.ReopenTab && !SettingsData.Settings.LastTab.Equals(string.Empty))
         {
-            new EntrySelection(SettingsData.Settings.LastTab).Show();
+            new EntrySelection(SettingsData.Settings.LastTab).Open();
         }
         else
         {
-            new TabSelection().Show();
+            new TabSelection().Open();
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log(UnityEngine.InputSystem.Keyboard.current.escapeKey.isPressed);
+        if (UnityEngine.InputSystem.Keyboard.current.escapeKey.isPressed)
+        {
+            UnityEngine.Application.Quit();
         }
     }
 

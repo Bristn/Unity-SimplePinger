@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ApplicationSettings : UILayout
+public class ApplicationSettings : UiScreen
 {
     private Checkbox toggleCode;
     private Checkbox toggleVibrationSuccess;
     private Checkbox toggleVibrationFailure;
     private Checkbox toggleSaveTab;
 
-    public override void Show()
+    public override void Open()
     {
         document = Application.Settings;
         document.enabled = true;
@@ -58,6 +58,6 @@ public class ApplicationSettings : UILayout
     private void PressedBack()
     {
         Persistence.SaveObjectToJson(SettingsData.Settings, "", Persistence.SETTING_FILE);
-        ShowOtherLayout(new TabSelection());
+        OpenOtherScreen(new TabSelection());
     }
 }

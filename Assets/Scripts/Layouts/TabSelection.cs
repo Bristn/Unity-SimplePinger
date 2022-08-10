@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static InputField;
 
-public class TabSelection : UILayout
+public class TabSelection : UiScreen
 {
     private VisualElement tabParent;
     private Button buttonAddTab;
@@ -23,7 +23,7 @@ public class TabSelection : UILayout
     private MenuItem menuExport;
     private MenuItem menuSettings;
 
-    public override void Show()
+    public override void Open()
     {
         document = Application.TabSelection;
         document.enabled = true;
@@ -156,7 +156,7 @@ public class TabSelection : UILayout
         }
     }
 
-    private void PressedMenu() => ShowOtherLayout(new ApplicationSettings());
+    private void PressedMenu() => OpenOtherScreen(new ApplicationSettings());
 
     private void PressedSelectAll()
     {
@@ -207,7 +207,7 @@ public class TabSelection : UILayout
     private void PressedTab(EditableText pEntry)
     {
         if (!selectionTracker.HasSelection) {
-            ShowOtherLayout(new EntrySelection(pEntry.Value));
+            OpenOtherScreen(new EntrySelection(pEntry.Value));
         }
         else
         {

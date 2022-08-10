@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static InputField;
 
-public class EntryEditor : UILayout
+public class EntryEditor : UiScreen
 {
     private Button buttonSaveEntry;
     private Label labelStatus;
@@ -38,7 +38,7 @@ public class EntryEditor : UILayout
         dataBefore = pData;
     }
 
-    public override void Show()
+    public override void Open()
     {
         document = Application.EntryEditor;
         document.enabled = true;
@@ -142,13 +142,13 @@ public class EntryEditor : UILayout
 
     private void PressedSaveEntry() 
     {
-        Hide();
+        Close();
         onSave?.Invoke(dataBefore, GetEntry());
     }
 
     private void PressedBack()
     {
-        Hide();
+        Close();
         onBack?.Invoke();
     }
 
