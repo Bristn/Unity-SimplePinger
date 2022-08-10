@@ -10,10 +10,24 @@ public class ApplicationSettings : UiScreen
     private Checkbox toggleVibrationFailure;
     private Checkbox toggleSaveTab;
 
-    public override void Open()
+    public ApplicationSettings()
     {
         document = Application.Settings;
-        document.enabled = true;
+    }
+
+    public override void CreateMenu()
+    {
+        MenuBuilder builder = new MenuBuilder()
+            .OnClickedBack(HandleBackButtonPress)
+            .ShowBackButton(true)
+            .Text("Settings");
+        base.CreateMenu(builder);
+    }
+
+    public override void Open()
+    {
+        CreateMenu();
+        base.Open();
 
         // Assign UI elements
         VisualElement root = document.rootVisualElement;
@@ -46,16 +60,10 @@ public class ApplicationSettings : UiScreen
             .Onchange((selected) => SettingsData.Settings.ReopenTab = selected)
             .Build();
 
-        // Create menu
-        Menu menu = new MenuBuilder()
-            .OnClickedBack(PressedBack)
-            .Text("Settings")
-            .Build();
-
         root.Add(menu.Root);
     }
 
-    private void PressedBack()
+    public override void HandleBackButtonPress()
     {
         Persistence.SaveObjectToJson(SettingsData.Settings, "", Persistence.SETTING_FILE);
         OpenOtherScreen(new TabSelection());

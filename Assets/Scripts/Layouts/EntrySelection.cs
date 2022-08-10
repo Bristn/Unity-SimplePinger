@@ -17,33 +17,18 @@ public class EntrySelection : UiScreen
     private List<PingEntry> entries = new List<PingEntry>();
     private SelectionTracker selectionTracker;
 
-    private Menu menu;
     private MenuItem menuDelete;
     private MenuItem menuSelect;
 
     public EntrySelection(string pTabName)
     {
+        document = Application.EntrySelection;
         tabName = pTabName;
     }
 
-    public override void Open()
+    public override void CreateMenu()
     {
-        document = Application.EntrySelection;
-        document.enabled = true;
-
-        // Assign variables
-        tabData = (TabData)Persistence.LoadObjectFromJson(typeof(TabData), Persistence.TABS_FOLDER, tabName);
         selectionTracker = new SelectionTracker(OnSelectionChange);
-
-        // Assign UI elements
-        VisualElement root = document.rootVisualElement;
-        entryParent = root.Q("entry-parent");
-        buttonAddEntry = root.Q<Button>("button-add-entry");
-
-        // Assign UI Actions
-        buttonAddEntry.clicked += PressedAddEntry;
-
-        // Create menu
         menuDelete = new MenuItemBuilder()
             .Icon(UiIcons.MenuDelete)
             .OnClick(PressedDelete)
@@ -54,14 +39,31 @@ public class EntrySelection : UiScreen
             .OnClick(PressedSelectAll)
             .Build();
 
-        menu = new MenuBuilder()
-            .OnClickedBack(PressedBack)
+        MenuBuilder builder = new MenuBuilder()
+            .OnClickedBack(HandleBackButtonPress)
+            .ShowBackButton(true)
             .MenuItems(menuDelete)
             .MenuItems(menuSelect)
             .Text(tabName)
-            .SelectionTracker(selectionTracker)
-            .Build();
+            .SelectionTracker(selectionTracker);
+        base.CreateMenu(builder);
+    }
 
+    public override void Open()
+    {
+        CreateMenu();
+        base.Open();
+
+        // Assign variables
+        tabData = (TabData)Persistence.LoadObjectFromJson(typeof(TabData), Persistence.TABS_FOLDER, tabName);
+
+        // Assign UI elements
+        VisualElement root = document.rootVisualElement;
+        entryParent = root.Q("entry-parent");
+        buttonAddEntry = root.Q<Button>("button-add-entry");
+
+        // Assign UI Actions
+        buttonAddEntry.clicked += PressedAddEntry;
         root.Add(menu.Root);
 
         // Draw the ping entries
@@ -127,7 +129,7 @@ public class EntrySelection : UiScreen
         OpenOtherScreen(new EntrySelection(tabName));
     }
 
-    private void PressedBack() => OpenOtherScreen(new TabSelection());
+    public override void HandleBackButtonPress() => OpenOtherScreen(new TabSelection());
 
     private void PressedSelectAll()
     {

@@ -32,16 +32,24 @@ public class EntryEditor : UiScreen
 
     public EntryEditor(EntryData pData, Action<EntryData, EntryData> pOnSave, Action pOnBack)
     {
-        // Assign variables
+        document = Application.EntryEditor;
         onSave = pOnSave;
         onBack = pOnBack;
         dataBefore = pData;
     }
 
+    public override void CreateMenu()
+    {
+        MenuBuilder builder = new MenuBuilder()
+            .Text("Entry editor")
+            .ShowBackButton(true);
+        base.CreateMenu(builder);
+    }
+
     public override void Open()
     {
-        document = Application.EntryEditor;
-        document.enabled = true;
+        CreateMenu();
+        base.Open();
 
         // Assign UI elements
         VisualElement root = document.rootVisualElement;
@@ -75,13 +83,6 @@ public class EntryEditor : UiScreen
 
         // Assign UI Actions
         buttonSaveEntry.clicked += PressedSaveEntry;
-
-        // Create menu
-        Menu menu = new MenuBuilder()
-            .OnClickedBack(PressedBack)
-            .Text("Entry editor")
-            .Build();
-
         root.Add(menu.Root);
     }
 
@@ -146,7 +147,7 @@ public class EntryEditor : UiScreen
         onSave?.Invoke(dataBefore, GetEntry());
     }
 
-    private void PressedBack()
+    public override void HandleBackButtonPress()
     {
         Close();
         onBack?.Invoke();

@@ -18,10 +18,10 @@ public class Menu
     private HashSet<MenuItem> menuItems = new HashSet<MenuItem>();
     private SelectionTracker selectionTracker;
     private MenuBackButton backButton;
-    private bool hasBackButton;
     private Action onBack;
+    private bool showBackButton;
 
-    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem, bool> pItems, SelectionTracker pSelectionTracker, Action pOnBack)
+    public Menu(VisualElement pRoot, string pText, Dictionary<MenuItem, bool> pItems, SelectionTracker pSelectionTracker, Action pOnBack, bool pShowBackButton)
     {
         // Assign UI elements
         root = pRoot.name.Equals("root") ? pRoot : root = pRoot.Q<VisualElement>("root");
@@ -42,11 +42,11 @@ public class Menu
 
         // Create back button
         onBack = pOnBack;
-        hasBackButton = onBack != null;
+        showBackButton = pShowBackButton;
         backButton = new MenuBackButtonBuilder().Build();
         backButton.Root.clicked += PressedBack;
         parentIcon.Insert(0, backButton.Root);
-        backButton.Root.style.display = hasBackButton ? DisplayStyle.Flex : DisplayStyle.None;
+        backButton.Root.style.display = showBackButton ? DisplayStyle.Flex : DisplayStyle.None;
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
@@ -172,11 +172,11 @@ public class Menu
         else
         {
             Text = text;
-            backButton.Root.style.display = hasBackButton ? DisplayStyle.Flex : DisplayStyle.None;
+            backButton.Root.style.display = showBackButton ? DisplayStyle.Flex : DisplayStyle.None;
         }
     }
 
-    private void PressedBack()
+    public void PressedBack()
     {
         if (selectionTracker != null && selectionTracker.HasSelection)
         {

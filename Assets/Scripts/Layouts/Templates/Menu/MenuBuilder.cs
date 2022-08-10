@@ -26,7 +26,7 @@ public class MenuBuilder : MonoBehaviour
     private Dictionary<MenuItem, bool> menuItems = new Dictionary<MenuItem, bool>();
     private SelectionTracker selectionTracker;
     private Action onBack;
-
+    private bool showBackButton;
 
     public MenuBuilder Root(VisualElement pRoot)
     {
@@ -64,6 +64,12 @@ public class MenuBuilder : MonoBehaviour
         return this;
     }
 
+    public MenuBuilder ShowBackButton(bool pShow)
+    {
+        showBackButton = pShow;
+        return this;
+    }
+
 
     // Build
     public Menu Build()
@@ -74,6 +80,6 @@ public class MenuBuilder : MonoBehaviour
             root = Prefab.Instantiate().Q<VisualElement>("root");
         }
 
-        return new Menu(root, text, menuItems, selectionTracker, onBack);
+        return new Menu(root, text, menuItems, selectionTracker, onBack, showBackButton);
     }
 }

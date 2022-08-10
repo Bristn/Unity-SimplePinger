@@ -17,30 +17,21 @@ public class TabSelection : UiScreen
     private List<EditableText> tabEntries = new List<EditableText>();
     private SelectionTracker selectionTracker;
 
-    private Menu menu;
     private MenuItem menuDelete;
     private MenuItem menuSelect;
     private MenuItem menuExport;
     private MenuItem menuSettings;
 
-    public override void Open()
+    public TabSelection()
     {
         document = Application.TabSelection;
-        document.enabled = true;
-
-        // Assign variables
         tabNames = TabPersistence.GetAllTabNames();
+        SettingsData.Settings.LastTab = string.Empty;
+    }
+
+    public override void CreateMenu()
+    {
         selectionTracker = new SelectionTracker(OnSelectionChange);
-
-        // Assign UI elements
-        VisualElement root = document.rootVisualElement;
-        tabParent = root.Q("tab-parent");
-        buttonAddTab = root.Q<Button>("button-add-tab");
-
-        // Assign UI Actions
-        buttonAddTab.clicked += PressedAddTab;
-
-        // Create menu
         menuDelete = new MenuItemBuilder()
             .Icon(UiIcons.MenuDelete)
             .OnClick(PressedDelete)
@@ -61,15 +52,29 @@ public class TabSelection : UiScreen
             .OnClick(PressedMenu)
             .Build();
 
-        menu = new MenuBuilder()
+        MenuBuilder builder = new MenuBuilder()
             .MenuItems(menuDelete)
             .MenuItems(menuSelect)
             .MenuItems(menuExport)
             .MenuItems(menuSettings)
             .Text("Tab selection")
             .SelectionTracker(selectionTracker)
-            .Build();
+            .ShowBackButton(false);
+        base.CreateMenu(builder);
+    }
 
+    public override void Open()
+    {
+        CreateMenu();
+        base.Open();
+
+        // Assign UI elements
+        VisualElement root = document.rootVisualElement;
+        tabParent = root.Q("tab-parent");
+        buttonAddTab = root.Q<Button>("button-add-tab");
+
+        // Assign UI Actions
+        buttonAddTab.clicked += PressedAddTab;
         root.Add(menu.Root);
 
         // Draw the tab entries
@@ -80,9 +85,6 @@ public class TabSelection : UiScreen
             selectionTracker.AddElement(entry);
         }
         OnSelectionChange();
-
-        // Reset las opened tab
-        SettingsData.Settings.LastTab = string.Empty;
     }
 
     private void PressedAddTab() 
@@ -224,4 +226,6 @@ public class TabSelection : UiScreen
         menu.SetMenuItemVisible(menuSelect, !selectionTracker.FullySelected);
         menu.SetMenuItemVisible(menuExport, selectionTracker.HasSelection);
     }
+
+    public override void HandleBackButtonPress() => UnityEngine.Application.Quit();
 }

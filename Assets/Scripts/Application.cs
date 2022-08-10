@@ -64,15 +64,6 @@ public class Application : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log(UnityEngine.InputSystem.Keyboard.current.escapeKey.isPressed);
-        if (UnityEngine.InputSystem.Keyboard.current.escapeKey.isPressed)
-        {
-            UnityEngine.Application.Quit();
-        }
-    }
-
     public static UIDocument TabSelection => Instance.tabSelection;
 
     public static UIDocument EntrySelection => Instance.entrySelection;
@@ -126,14 +117,14 @@ public class Application : MonoBehaviour
         PlayerLoopProfile idle = new PlayerLoopProfileBuilder()
             .FilterSystems(idleFilter)
             .FilterType(FilterType.KEEP)
-            .AdditionalSystems(LongClickManager.System)
+            .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
             .InteractionCallback(InteractionActionIdle)
             .Build();
 
         PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
             .TimeoutCallback(TimeoutActionActive)
             .TimeoutDuration(0.1f)
-            .AdditionalSystems(LongClickManager.System)
+            .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
             .UI(typeof(TextField), (Focusable element) => true)
             .Build();
 
