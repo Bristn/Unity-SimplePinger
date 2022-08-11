@@ -39,8 +39,6 @@ public class Application : MonoBehaviour
 
     void Start()
     {
-        TabPersistence.ImportTab();
-
         Screen.fullScreen = false;
 
         Instance = this;
@@ -88,39 +86,6 @@ public class Application : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         UnityEngine.Application.targetFrameRate = 30;
 
-        List<Type> idleFilter = new List<Type>(new Type[]
-        {
-                // Keep, as causes higher CPU usage when removed
-                typeof(TimeUpdate),
-
-#if !UNITY_ANDROID || UNITY_EDITOR
-                // Causese: GfxDeviceD3D11Base::WaitForLastPresentationAndGetTimestamp() was called multiple times in a row without calling GfxDeviceD3D11Base::PresentFrame(). This may result in a deadlock.
-                typeof(PresentAfterDraw),
-#endif
-
-                // Keep Profiler for debugging
-                typeof(ProfilerStartFrame),
-                typeof(ProfilerSynchronizeStats),
-                typeof(ProfilerEndFrame),
-
-                // input Test
-                typeof(SynchronizeInputs),
-                typeof(EarlyUpdate.UpdateInputManager),
-                typeof(EarlyUpdate.ProcessRemoteInput),
-                typeof(NewInputFixedUpdate),
-                typeof(CheckTexFieldInput),
-                typeof(NewInputUpdate),
-                typeof(InputEndFrame),
-                typeof(ResetInputAxis),
-        });
-
-        PlayerLoopProfile idle = new PlayerLoopProfileBuilder()
-            .FilterSystems(idleFilter)
-            .FilterType(FilterType.KEEP)
-            .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
-            .InteractionCallback(InteractionActionIdle)
-            .Build();
-
         PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
             .TimeoutCallback(TimeoutActionActive)
             .TimeoutDuration(0.1f)
@@ -128,15 +93,10 @@ public class Application : MonoBehaviour
             .UI(typeof(TextField), (Focusable element) => true)
             .Build();
 
-        PlayerLoopManager.AddProfile(Profile.IDLE, idle);
+        PlayerLoopManager.AddProfile(Profile.IDLE, ProfileIdle.GetProfile());
         PlayerLoopManager.AddProfile(Profile.NORMAL, normal);
 
         PlayerLoopManager.SetActiveProfile(Profile.IDLE);
-    }
-
-    private void InteractionActionIdle(InteractionType pType)
-    {
-        PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
     }
 
     private void TimeoutActionActive()
@@ -151,8 +111,16 @@ public class Application : MonoBehaviour
 
     private void OnApplicationPause(bool pPaused)
     {
-        PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
-        Persistence.SaveObjectToJson(SettingsData.Settings, "", Persistence.SETTING_FILE);
+        if (!pPaused)
+        {
+            PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
+            TabPersistence.ImportTab();
+            // TODO: Move tab logic to onResume -> App might stille be opened when importing a file
+        }
+        else
+        {
+            Persistence.SaveObjectToJson(SettingsData.Settings, "", Persistence.SETTING_FILE);
+        }
     }
 
     private void OnApplicationQuit()

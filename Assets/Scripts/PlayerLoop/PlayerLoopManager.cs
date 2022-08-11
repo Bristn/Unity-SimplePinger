@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -47,5 +48,10 @@ namespace Assets.Scripts.PlayerLoop
         }
 
         private static int ToInt(this System.Enum pEnum) => (int)(object)pEnum;
+
+        internal static void SetActiveProfile(object nORMAL)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
