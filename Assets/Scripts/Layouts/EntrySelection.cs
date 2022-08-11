@@ -14,8 +14,8 @@ public class EntrySelection : UiScreen
 
     private string tabName;
     private TabData tabData;
-    private List<PingEntry> entries = new List<PingEntry>();
     private SelectionTracker selectionTracker;
+    private Dictionary<EntryData, PingEntry> entries = new Dictionary<EntryData, PingEntry>();
 
     private MenuItem menuDelete;
     private MenuItem menuSelect;
@@ -69,9 +69,9 @@ public class EntrySelection : UiScreen
         // Draw the ping entries
         foreach (EntryData data in tabData.Entries)
         {
-            PingEntry entry = GetNewPingEntry(data);
-            entries.Add(entry);
+            PingEntry entry = GetPingEntry(data);
             selectionTracker.AddElement(entry);
+            entryParent.Add(entry.Root);
         }
         OnSelectionChange();
 
@@ -79,8 +79,13 @@ public class EntrySelection : UiScreen
         SettingsData.Settings.LastTab = tabName;
     }
 
-    private PingEntry GetNewPingEntry(EntryData pData)
+    private PingEntry GetPingEntry(EntryData pData)
     {
+        if (entries.TryGetValue(pData, out PingEntry result))
+        {
+            return result;
+        }
+
         PingEntry entry = new PingEntryBuilder()
             .Data(pData)
             .Status(PingEntry.PingStatus.INACTIVE)
@@ -88,7 +93,7 @@ public class EntrySelection : UiScreen
             .OnLongClick(LongPressedEntry)
             .OnEdit(PressedEditEntry)
             .Build();
-        entryParent.Add(entry.Root);
+        entries.Add(pData, entry);
 
         return entry;
     }
@@ -107,26 +112,33 @@ public class EntrySelection : UiScreen
 
     private void LongPressedEntry(PingEntry pEntry, EntryData pData) => selectionTracker.SelectElement(pEntry, !pEntry.Selected);
 
-    private void PressedEditEntry(PingEntry pEntry, EntryData pData) => OpenOtherScreen(new EntryEditor(pData, OnChangeEntry, OnDiscardEntryChange));
+    private void PressedEditEntry(PingEntry pEntry, EntryData pData) => OpenOtherScreen(new EntryEditor(pData, OnChangeEntry, OnDiscardEntryChange), true);
     
     private void OnChangeEntry(EntryData pOld, EntryData pNew)
     {
-        tabData.RemoveEntry(pOld);
-        tabData.AddEntry(pNew);
+        PingEntry entryOld = GetPingEntry(pOld);
+        PingEntry entryNew = GetPingEntry(pNew);
+        selectionTracker.ReplaceElement(entryOld, entryNew);
+        entryParent.ReplaceWith(entryOld.Root, entryNew.Root);
+
+        tabData.ReplaceEntry(pOld, pNew);
         Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
-        OpenOtherScreen(new EntrySelection(tabName));
+        Show();
     }
 
-    private void OnDiscardEntryChange() => OpenOtherScreen(new EntrySelection(tabName));
+    private void OnDiscardEntryChange() => Show();
 
-    private void PressedAddEntry() => OpenOtherScreen(new EntryEditor(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange));
+    private void PressedAddEntry() => OpenOtherScreen(new EntryEditor(new EntryData(), OnSaveNewEntry, OnDiscardEntryChange), true);
 
     private void OnSaveNewEntry(EntryData pOld, EntryData pNew)
     {
+        PingEntry entry = GetPingEntry(pNew);
+        selectionTracker.AddElement(entry);
+        entryParent.Add(entry.Root);
+
         tabData.AddEntry(pNew);
-        entries.Add(GetNewPingEntry(pNew));
         Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
-        OpenOtherScreen(new EntrySelection(tabName));
+        Show();
     }
 
     public override void HandleBackButtonPress() => OpenOtherScreen(new TabSelection());
@@ -151,10 +163,12 @@ public class EntrySelection : UiScreen
         foreach (SelectableElement element in selectionTracker.Selection.ToList())
         {
             PingEntry entry = (PingEntry)element;
-            entries.Remove(entry);
             selectionTracker.RemoveElement(entry);
             entryParent.Remove(entry.Root);
-            // TODO: Delete entry from tab data
+
+            EntryData data = entries.FirstOrDefault(x => x.Value == entry).Key;
+            tabData.RemoveEntry(data);
+            entries.Remove(data);
             Persistence.SaveObjectToJson(tabData, Persistence.TABS_FOLDER, tabName);
         }
     }

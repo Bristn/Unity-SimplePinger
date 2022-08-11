@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,6 +73,8 @@ public class SelectionTracker
         SelectElement(pElement, false);
         elements.Remove(pElement);
     }
+
+    public void ReplaceElement(SelectableElement pOld, SelectableElement pNew) => elements.ReplaceElement(pOld, pNew);
     
     public IReadOnlyCollection<SelectableElement> Selection => selectedElements;
 

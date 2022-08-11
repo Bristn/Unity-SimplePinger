@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class TabData
     {
         entries.Remove(pEntry);
     }
+
+    public void ReplaceEntry(EntryData pOld, EntryData pNew) =>  entries.ReplaceElement(pOld, pNew);
 
     public IReadOnlyList<EntryData> Entries => entries;
 }

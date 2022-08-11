@@ -8,36 +8,33 @@ namespace Assets.Scripts
 {
     public static class Extensions
     {
-        // https://stackoverflow.com/questions/1290603/how-to-get-the-index-of-an-element-in-an-ienumerable
-        /// <summary>
-        /// Returns the index of the element. Similar to List.IndexOf(). Custom implementation needed, as the Visualements' children are stored in an IEnumerable
-        /// </summary>
-        /// <returns>The index of the element or -1 if it's not present</returns>
-        public static int IndexOf<T>(this IEnumerable<T> source, T value)
+        public static bool ReplaceElement<T>(this List<T> pCollection, T pOld, T pNew)
         {
-            int index = 0;
-            var comparer = EqualityComparer<T>.Default;
-            foreach (T item in source)
+            int index = pCollection.IndexOf(pOld);
+            if (index == -1)
             {
-                if (comparer.Equals(item, value)) return index;
-                index++;
+                return false;
             }
-            return -1;
+
+            pCollection.RemoveAt(index);
+            pCollection.Insert(index, pNew);
+            return true;
         }
 
         /// <summary>
         /// Replaces the given component/element with a new component/element
         /// </summary>
-        public static void ReplaceWith(this VisualElement pParent, VisualElement pOld, VisualElement pNew)
+        public static bool ReplaceWith(this VisualElement pParent, VisualElement pOld, VisualElement pNew)
         {
             int index = pParent.IndexOf(pOld);
             if (index == -1)
             {
-                return;
+                return false;
             }
 
             pParent.RemoveAt(index);
             pParent.Insert(index, pNew);
+            return true;
         }
 
 
