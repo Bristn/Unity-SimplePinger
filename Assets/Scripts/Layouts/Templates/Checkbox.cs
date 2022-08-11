@@ -41,18 +41,18 @@ public class Checkbox
         checkbox.style.display = DisplayStyle.None;
 
         indicatorParent = new VisualElement();
-        indicatorParent.styleSheets.Add(Application.StyleCheckbox);
+        indicatorParent.styleSheets.Add(UiStyleSheets.Checkbox);
         indicatorParent.AddToClassList("checkbox-parent");
         parent.Insert(0, indicatorParent);
 
         indicatorBackground = new VisualElement();
-        indicatorBackground.styleSheets.Add(Application.StyleCheckbox);
+        indicatorBackground.styleSheets.Add(UiStyleSheets.Checkbox);
         indicatorBackground.AddToClassList("checkbox-background");
         indicatorBackground.AddToClassList("checkbox-background--selected");
         indicatorParent.Add(indicatorBackground);
 
         indicatorDot = new VisualElement();
-        indicatorDot.styleSheets.Add(Application.StyleCheckbox);
+        indicatorDot.styleSheets.Add(UiStyleSheets.Checkbox);
         indicatorDot.AddToClassList("checkbox-dot");
         indicatorDot.AddToClassList("checkbox-dot--selected");
         indicatorParent.Add(indicatorDot);

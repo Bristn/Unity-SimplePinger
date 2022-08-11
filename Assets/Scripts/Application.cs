@@ -25,9 +25,6 @@ public class Application : MonoBehaviour
     [SerializeField] private UIDocument entryEditor;
     [SerializeField] private UIDocument settings;
 
-    [SerializeField] private StyleSheet styleCheckbox;
-    public static StyleSheet StyleCheckbox => Instance.styleCheckbox;
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void UpdateStatusBar()
     {
