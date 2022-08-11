@@ -72,6 +72,11 @@ public class Application : MonoBehaviour
         Instance.StartCoroutine(pRoutine);
     }
 
+    public static void StopAsync(IEnumerator pRoutine)
+    {
+        Instance.StopCoroutine(pRoutine);
+    }
+
     public enum Profile
     {
         IDLE,

@@ -22,12 +22,14 @@ public class EntryEditor : UiScreen
 
     private EntryData dataBefore;
     private ConnectionStatus status;
+    private IEnumerator connectionRoutine;
 
     public enum ConnectionStatus
     {
         INVALID,
         SUCCESS,
-        FAILURE
+        FAILURE,
+        CONNECTING
     }
 
     public EntryEditor(EntryData pData, Action<EntryData, EntryData> pOnSave, Action pOnBack)
@@ -88,13 +90,19 @@ public class EntryEditor : UiScreen
 
     private void InputIpChanged(string pValue, bool pIsValid)
     {
+        if (connectionRoutine != null)
+        {
+            Application.StopAsync(connectionRoutine);
+        }
+
         if (!pIsValid)
         {
             Status = ConnectionStatus.INVALID;
         }
         else
         {
-            Application.RunAsync(this.SetConnectionStatus(pValue));
+            connectionRoutine = this.SetConnectionStatus(pValue);
+            Application.RunAsync(connectionRoutine);
             labelAddress.text = FullUrl;
         }
     }
@@ -120,6 +128,11 @@ public class EntryEditor : UiScreen
             {
                 labelStatus.text = "Unable to connect";
                 labelStatus.SetForegroundClass(StyleClasses.Foreground.NEGATIVE);
+            }
+            else if (status == ConnectionStatus.CONNECTING)
+            {
+                labelStatus.text = "Connecintg ...";
+                labelStatus.SetForegroundClass(StyleClasses.Foreground.ON_DARK);
             }
         }
     }

@@ -51,6 +51,7 @@ public static class Connection
     public static IEnumerator SetConnectionStatus(this EntryEditor pEditor, string pAddress)
     {
         PlayerLoopManager.PreventProfileChange++;
+        pEditor.Status = EntryEditor.ConnectionStatus.CONNECTING;
         UnityWebRequest request = UnityWebRequest.Get(pAddress);
         yield return SendWebRequest(request);
 
