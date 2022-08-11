@@ -88,12 +88,12 @@ public static class TabPersistence
         }
     }
 
-    public static void ImportTab()
+    public static bool ImportTab()
     {
         ClearTemporaryImport();
         if (!ImportFromIntent(TEMP_IMPORT_ARCHIVE))
         {
-            return;
+            return false;
         }
         
         // Decompress the zip file
@@ -137,6 +137,7 @@ public static class TabPersistence
         }
 
         ClearTemporaryImport();
+        return true;
     }
 
     private static void ClearTemporaryImport()
