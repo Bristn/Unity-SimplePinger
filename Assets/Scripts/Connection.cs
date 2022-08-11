@@ -1,4 +1,5 @@
 using Assets.Scripts.PlayerLoop;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,17 @@ public static class Connection
         pEntry.Status = PingEntry.PingStatus.CONNECTING;
 
         UnityWebRequest request = UnityWebRequest.Get(pEntry.FullUrl);
-        request.certificateHandler = new CertificateDummy();
-        yield return request.SendWebRequest();
+        yield return SendWebRequest(request);
 
         bool success = IsCodeSuccess(request.responseCode);
-        pEntry.StatusCode = request.responseCode;
+        if (request.error != null && request.error.ToLower().Contains("timeout"))
+        {
+            pEntry.StatusCode = 408;
+        }
+        else
+        {
+            pEntry.StatusCode = request.responseCode;
+        }
 
         if (success)
         {
@@ -45,12 +52,18 @@ public static class Connection
     {
         PlayerLoopManager.PreventProfileChange++;
         UnityWebRequest request = UnityWebRequest.Get(pAddress);
-        request.certificateHandler = new CertificateDummy();
-        yield return request.SendWebRequest();
+        yield return SendWebRequest(request);
 
         bool success = IsCodeSuccess(request.responseCode);
         pEditor.Status = success ? EntryEditor.ConnectionStatus.SUCCESS : EntryEditor.ConnectionStatus.FAILURE;
         PlayerLoopManager.PreventProfileChange--;
+    }
+
+    private static IEnumerator SendWebRequest(UnityWebRequest pRequest)
+    {
+        pRequest.certificateHandler = new CertificateDummy();
+        pRequest.timeout = 1; // TODO: Expose in settings
+        yield return pRequest.SendWebRequest();
     }
 
     private static bool IsCodeSuccess(long pCode)
