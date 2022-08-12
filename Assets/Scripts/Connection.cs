@@ -63,7 +63,7 @@ public static class Connection
     private static IEnumerator SendWebRequest(UnityWebRequest pRequest)
     {
         pRequest.certificateHandler = new CertificateDummy();
-        pRequest.timeout = 1; // TODO: Expose in settings
+        pRequest.timeout = SettingsData.Settings.Timeout;
         yield return pRequest.SendWebRequest();
     }
 

@@ -9,6 +9,7 @@ public class ApplicationSettings : UiScreen
     private Checkbox toggleVibrationSuccess;
     private Checkbox toggleVibrationFailure;
     private Checkbox toggleSaveTab;
+    private InputField inputTimeout;
 
     public ApplicationSettings()
     {
@@ -60,7 +61,23 @@ public class ApplicationSettings : UiScreen
             .Onchange((selected) => SettingsData.Settings.ReopenTab = selected)
             .Build();
 
+        inputTimeout = new InputFieldBuilder()
+            .Root(root.Q("input-timeout"))
+            .Hint("Timeout in seconds")
+            .Validator(new DecimalValidator(1, 10, true))
+            .Value(SettingsData.Settings.Timeout + "")
+            .OnChange(InputTimeoutChanged)
+            .Build();
+
         root.Add(menu.Root);
+    }
+
+    private void InputTimeoutChanged(string pValue, bool pIsValid)
+    {
+        if (pIsValid)
+        {
+            SettingsData.Settings.Timeout = int.Parse(pValue);
+        }
     }
 
     public override void HandleBackButtonPress()

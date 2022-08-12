@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Checkbox" src="project://database/Assets/UI/Layouts/Templates/Checkbox.uxml?fileID=9197481963319205126&amp;guid=0c110f6ca5e100d46b66d3eb6ab45529&amp;type=3#Checkbox" />
+    <ui:Template name="InputField" src="project://database/Assets/UI/Layouts/Templates/InputField.uxml?fileID=9197481963319205126&amp;guid=79d60d222d61d2a40b331a1f06669357&amp;type=3#InputField" />
     <Style src="project://database/Assets/UI/Styles/Colors.uss?fileID=7433441132597879392&amp;guid=6fa211931b7b6ef408e5195358f0c0ae&amp;type=3#Colors" />
     <ui:VisualElement class="background-dark color-background-dark" style="padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 20px; flex-grow: 1;">
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden">
@@ -8,6 +9,7 @@
                 <ui:Instance template="Checkbox" name="toggle-vibration-success" style="width: 100%; height: 60px; margin-bottom: 20px;" />
                 <ui:Instance template="Checkbox" name="toggle-vibration-failure" style="width: 100%; height: 60px; margin-bottom: 20px;" />
                 <ui:Instance template="Checkbox" name="toggle-save-tab" style="width: 100%; height: 60px; margin-bottom: 20px;" />
+                <ui:Instance template="InputField" name="input-timeout" style="width: 100%;" />
             </ui:VisualElement>
         </ui:ScrollView>
     </ui:VisualElement>

@@ -29,6 +29,7 @@ public class SettingsData
     [SerializeField] private bool vibrateOnFailure;
     [SerializeField] private bool reopenTab;
     [SerializeField] private string lastTab = string.Empty;
+    [SerializeField] private int timeout = 1;
 
     public bool ShowCode
     {
@@ -58,5 +59,11 @@ public class SettingsData
     {
         get => lastTab;
         set => lastTab = value;
+    }
+
+    public int Timeout
+    {
+        get => timeout;
+        set => timeout = value;
     }
 }
