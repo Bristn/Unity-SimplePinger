@@ -153,7 +153,10 @@ public static class TabPersistence
         }
     }
 
+    // Combination of
     // https://answers.unity.com/questions/1350799/convert-android-uri-to-a-file-path-unity-can-read.html
+    // https://answers.unity.com/questions/1327186/how-to-get-intent-data-for-unity-to-use.html
+    private static string prevIntentURI;
     private static bool ImportFromIntent(string importPath)
     {
         try
@@ -164,6 +167,16 @@ public static class TabPersistence
 
             // Get the current intent
             AndroidJavaObject intent = activityObject.Call<AndroidJavaObject>("getIntent");
+
+            // TODO: Check if causes issues with some file providers (only tested with whatsapp)
+            // Check if the same uri has been imported twice in a row. Only happens if the user shows all opened apps and then reopens the unity app from the list
+            // When importing whatsapp generates a new uri everytime a file is pressed
+            string currentURI = intent.Call<string>("getDataString");
+            if (prevIntentURI == currentURI)
+            {
+                return false;
+            }
+            prevIntentURI = currentURI;
 
             // Get the intent data using AndroidJNI.CallObjectMethod so we can check for null
             IntPtr method_getData = AndroidJNIHelper.GetMethodID(intent.GetRawClass(), "getData", "()Ljava/lang/Object;");

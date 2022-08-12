@@ -113,9 +113,6 @@ public class Application : MonoBehaviour
 
     private void OnApplicationPause(bool pPaused)
     {
-        // TODO Fix: Once a tab file is clicked the app is trying to import the same file on each resume, even ig the app hasn't been started with an intent
-        // Only occurs when user "switches tabs", once the "desktop" is opened the intent is correctly processed
-        // -> Detect when the same uri is imported twice -> But check if the user has done anything which would change the outcome of importing
         if (!pPaused)
         {
             PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
