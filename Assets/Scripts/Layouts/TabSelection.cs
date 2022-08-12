@@ -98,6 +98,7 @@ public class TabSelection : UiScreen
             .InvalidValues(tabNames)
             .Value(string.Empty)
             .Placeholder("Enter tab name ...")
+            .Hint("Tab name")
             .Build();
 
         tabParent.Add(input.Root);
@@ -119,6 +120,7 @@ public class TabSelection : UiScreen
             .OnSave(OnChangeTab)
             .InvalidValues(tabNames)
             .Placeholder("Enter tab name ...")
+            .Hint("Tab name")
             .Build();
 
         entry.SetConnectedInput(input);

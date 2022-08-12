@@ -15,6 +15,7 @@ public class InputField
     private string lastValidValue = "";
     private string fromValue;
     private string placeholderValue;
+    private string hintValue;
     private bool hasFocus;
 
     private Dictionary<ValidType, bool> validIconVisiblity = new Dictionary<ValidType, bool>();
@@ -26,6 +27,8 @@ public class InputField
     private Button buttonSave;
     private Button buttonDiscard;
     private Label textPlaceholder;
+    private Label textHint;
+    private VisualElement textInput;
 
     private Action<InputField, string, string> onSave = null;
     private Action<InputField> onDiscard = null;
@@ -51,7 +54,8 @@ public class InputField
             Action<InputField, string, string> pOnSave,
             Action<InputField> pOnDiscard,
             Action<string, bool> pOnChange,
-            string pPlaceholderValue
+            string pPlaceholder,
+            string pHint
         )
     {
         // Assign variables
@@ -72,8 +76,21 @@ public class InputField
         buttonSave = root.Q<Button>("button-save");
         buttonDiscard = root.Q<Button>("button-discard");
         textPlaceholder = root.Q<Label>("text-placeholder");
+        textHint = root.Q<Label>("text-hint");
+
+        // Apply style (not possible in editor GUI to style children of unity prefabs)
+        textInput = textField.Children().First();
+        textInput.style.marginLeft = 20;
+        textInput.style.marginTop = 15;
+        textInput.SetPadding(0);
+        textInput.style.backgroundColor = new StyleColor(new Color(1, 1, 1, 0));
+        textInput.SetBorderWidth(0);
+        textInput.SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL);
+        textInput.AddToClassList("text-size-regular");
+        
         Value = pValue;
-        PlaceholderValue = pPlaceholderValue;
+        PlaceholderValue = pPlaceholder;
+        HintValue = pHint;
 
         // Assign button actions
         buttonSave.clicked += PressedSave;
@@ -84,20 +101,13 @@ public class InputField
         {
             hasFocus = value;
             UpdatePlaceholder();
+            UpdateHint();
         };
         textField.RegisterCallback<FocusInEvent>((e) => focusChanged.Invoke(true));
         textField.RegisterCallback<FocusOutEvent>((e) => focusChanged.Invoke(false));
 
         // Add style sheet & classes
         root.AddAllStyleSheets();
-
-        // Apply style (not possible in editor GUI to style children of unity prefabs)
-        textField.Children().First().style.marginLeft = 20;
-        textField.Children().First().SetPadding(0);
-        textField.Children().First().style.backgroundColor = new StyleColor(new Color(1, 1, 1, 0));
-        textField.Children().First().SetBorderWidth(0);
-        textField.Children().First().SetForegroundClass(StyleClasses.Foreground.ON_NEUTRAL);
-        textField.Children().First().AddToClassList("text-size-regular");
     }
 
     private void PressedSave()
@@ -155,6 +165,7 @@ public class InputField
         }
 
         UpdatePlaceholder();
+        UpdateHint();
         onChange?.Invoke(pValue, isValid);
     }
 
@@ -194,6 +205,29 @@ public class InputField
     {
         bool showPlaceholder = (textField.value == string.Empty || textField.value.Length == 0) && !hasFocus;
         textPlaceholder.style.display = showPlaceholder ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    public string HintValue
+    {
+        get => hintValue;
+        set
+        {
+            hintValue = value;
+            textHint.text = hintValue;
+            UpdateHint();
+        }
+    }
+
+    private void UpdateHint()
+    {
+        bool showHint = (textField.value != string.Empty || hasFocus) && hintValue != string.Empty;
+        textHint.style.display = showHint ? DisplayStyle.Flex : DisplayStyle.None;
+
+        int placeholderPos = showHint ? 5 : 0;
+        textPlaceholder.style.paddingTop = placeholderPos;
+
+        int inputPos = showHint ? 15 : 0;
+        textInput.style.marginTop = inputPos;
     }
 
     public VisualElement Root => root;

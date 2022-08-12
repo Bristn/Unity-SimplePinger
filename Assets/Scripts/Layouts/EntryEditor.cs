@@ -66,13 +66,15 @@ public class EntryEditor : UiScreen
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputIpChanged)
             .Placeholder("Enter host address ...")
+            .Hint("Host")
             .Build();
 
         inputName = new InputFieldBuilder()
             .Root(root.Q<VisualElement>("input-name"))
             .Value(dataBefore.Name)
             .ValidIconVisiblity(ValidType.INVALID, true)
-            .Placeholder("Enter entry name ...")
+            .Placeholder("Enter display name ...")
+            .Hint("Name")
             .Build();
 
         inputSuffix = new InputFieldBuilder()
@@ -81,6 +83,7 @@ public class EntryEditor : UiScreen
             .ValidIconVisiblity(ValidType.INVALID, true)
             .OnChange(InputSuffixChanged)
             .Placeholder("Enter suffix ...")
+            .Hint("Suffix")
             .Build();
 
         // Assign UI Actions

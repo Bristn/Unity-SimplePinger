@@ -26,6 +26,7 @@ public class InputFieldBuilder : MonoBehaviour
 
     private string value = string.Empty;
     private string placeholder = string.Empty;
+    private string hint = string.Empty;
 
     private Dictionary<InputField.ValidType, bool> validIconVisiblity = new Dictionary<InputField.ValidType, bool>();
     private Dictionary<InputField.ValidType, bool> saveButtonVisiblity = new Dictionary<InputField.ValidType, bool>();
@@ -108,6 +109,11 @@ public class InputFieldBuilder : MonoBehaviour
         return this;
     }
 
+    public InputFieldBuilder Hint(string pHint)
+    {
+        hint = pHint;
+        return this;
+    }
 
     // Build
     public InputField Build()
@@ -139,7 +145,8 @@ public class InputFieldBuilder : MonoBehaviour
                 onSave,
                 onDiscard,
                 onChange,
-                placeholder
+                placeholder,
+                hint
             );
     }
 }
