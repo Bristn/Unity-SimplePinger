@@ -1,8 +1,6 @@
 using Assets.Scripts.PlayerLoop;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.PlayerLoop;
 using static Application;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;

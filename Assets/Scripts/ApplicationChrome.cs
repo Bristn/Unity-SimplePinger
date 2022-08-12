@@ -2,9 +2,6 @@
 #define USE_ANDROID
 #endif
 
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 /**
  * @author zeh fernando

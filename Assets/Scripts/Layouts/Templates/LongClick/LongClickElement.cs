@@ -1,9 +1,7 @@
 using Assets.Scripts.PlayerLoop;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.LowLevel;
 using UnityEngine.UIElements;
 
 public class LongClickElement

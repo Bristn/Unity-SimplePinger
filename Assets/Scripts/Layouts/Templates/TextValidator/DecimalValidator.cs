@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Text.RegularExpressions;
-using UnityEngine;
-
-public class DecimalValidator : CustomValidator
+﻿public class DecimalValidator : CustomValidator
 {
     private float minValue;
     private float maxValue;

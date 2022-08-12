@@ -1,20 +1,7 @@
 using Assets.Scripts.PlayerLoop;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
-using UnityEngine.Rendering;
 using UnityEngine.UIElements;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
-using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
-using static UnityEngine.PlayerLoop.FixedUpdate;
-using static UnityEngine.PlayerLoop.Initialization;
-using static UnityEngine.PlayerLoop.PostLateUpdate;
-using static UnityEngine.PlayerLoop.PreUpdate;
 
 public class Application : MonoBehaviour
 {
