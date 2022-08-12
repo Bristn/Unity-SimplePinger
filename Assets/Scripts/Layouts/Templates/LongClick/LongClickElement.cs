@@ -27,6 +27,7 @@ public class LongClickElement
         // Register callbacks
         button.RegisterCallback<PointerDownEvent>(PointerDown, TrickleDown.TrickleDown);
         button.RegisterCallback<PointerUpEvent>(PointerUp, TrickleDown.TrickleDown);
+        button.RegisterCallback<PointerLeaveEvent>(PointerLeave, TrickleDown.NoTrickleDown);
 
         // Add to Manager 
         LongClickManager.AddElement(this);
@@ -60,6 +61,8 @@ public class LongClickElement
         yield return null;
         onClick?.Invoke();
     }
+
+    private void PointerLeave(PointerLeaveEvent pEvent) => Reset();
 
     public void Update()
     {
