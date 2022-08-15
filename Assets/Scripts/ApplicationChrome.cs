@@ -1,11 +1,12 @@
 #if UNITY_ANDROID && !UNITY_EDITOR
 #define USE_ANDROID
+using System;
+using UnityEngine;
 #endif
 
-
 /**
- * @author zeh fernando
- */
+* @author zeh fernando
+*/
 class ApplicationChrome {
 
 	/**
