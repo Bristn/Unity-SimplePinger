@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Application : MonoBehaviour
+public class Main : MonoBehaviour
 {
-    public static Application Instance;
+    public static Main Instance;
 
     [SerializeField] private UIDocument tabSelection;
     [SerializeField] private UIDocument entrySelection;

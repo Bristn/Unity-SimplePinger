@@ -20,7 +20,7 @@ public class TabSelection : UiScreen
 
     public TabSelection()
     {
-        document = Application.TabSelection;
+        document = Main.TabSelection;
         tabNames = TabPersistence.GetAllTabNames();
         SettingsData.Settings.LastTab = string.Empty;
     }

@@ -31,7 +31,7 @@ public class EntryEditor : UiScreen
 
     public EntryEditor(EntryData pData, Action<EntryData, EntryData> pOnSave, Action pOnBack)
     {
-        document = Application.EntryEditor;
+        document = Main.EntryEditor;
         onSave = pOnSave;
         onBack = pOnBack;
         dataBefore = pData;
@@ -92,7 +92,7 @@ public class EntryEditor : UiScreen
     {
         if (connectionRoutine != null)
         {
-            Application.StopAsync(connectionRoutine);
+            Main.StopAsync(connectionRoutine);
             PlayerLoopManager.PreventProfileChange = 0;
         }
 
@@ -103,7 +103,7 @@ public class EntryEditor : UiScreen
         else
         {
             connectionRoutine = this.SetConnectionStatus(pValue);
-            Application.RunAsync(connectionRoutine);
+            Main.RunAsync(connectionRoutine);
             labelAddress.text = FullUrl;
         }
     }

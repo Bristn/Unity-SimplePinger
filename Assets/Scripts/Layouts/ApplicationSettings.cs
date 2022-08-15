@@ -10,7 +10,7 @@ public class ApplicationSettings : UiScreen
 
     public ApplicationSettings()
     {
-        document = Application.Settings;
+        document = Main.Settings;
     }
 
     public override void CreateMenu()

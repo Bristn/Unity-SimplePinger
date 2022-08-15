@@ -18,7 +18,7 @@ public class EntrySelection : UiScreen
 
     public EntrySelection(string pTabName)
     {
-        document = Application.EntrySelection;
+        document = Main.EntrySelection;
         tabName = pTabName;
     }
 
@@ -98,7 +98,7 @@ public class EntrySelection : UiScreen
     {
         if (!selectionTracker.HasSelection)
         {
-            Application.RunAsync(pEntry.ActivateEntry());
+            Main.RunAsync(pEntry.ActivateEntry());
         }
         else
         {

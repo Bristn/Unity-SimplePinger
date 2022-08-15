@@ -2,7 +2,7 @@ using Assets.Scripts.PlayerLoop;
 using System;
 using System.Collections.Generic;
 using UnityEngine.PlayerLoop;
-using static Application;
+using static Main;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 using static UnityEngine.PlayerLoop.FixedUpdate;

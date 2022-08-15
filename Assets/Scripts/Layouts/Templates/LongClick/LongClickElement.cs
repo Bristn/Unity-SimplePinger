@@ -49,7 +49,7 @@ public class LongClickElement
             return;
         }
 
-        Application.RunAsync(InvokeOnclick());
+        Main.RunAsync(InvokeOnclick());
         Reset();
     }
 
