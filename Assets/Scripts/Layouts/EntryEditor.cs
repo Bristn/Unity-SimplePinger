@@ -1,3 +1,4 @@
+using Assets.Scripts.PlayerLoop;
 using System;
 using System.Collections;
 using UnityEngine.UIElements;
@@ -92,6 +93,7 @@ public class EntryEditor : UiScreen
         if (connectionRoutine != null)
         {
             Application.StopAsync(connectionRoutine);
+            PlayerLoopManager.PreventProfileChange = 0;
         }
 
         if (!pIsValid)
