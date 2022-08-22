@@ -111,22 +111,10 @@ public class Main : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
 
-        PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
-            .TimeoutCallback(TimeoutActionActive)
-            .TimeoutDuration(0.1f)
-            .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
-            .ActiveUiEvaluation(typeof(TextField), (Focusable element) => true)
-            .Build();
-
         PlayerLoopInteraction.AddActionMap(inputAsset.FindActionMap("UI"));
         PlayerLoopManager.AddProfile(Profile.IDLE, ProfileIdle.GetProfile());
-        PlayerLoopManager.AddProfile(Profile.NORMAL, normal);
+        PlayerLoopManager.AddProfile(Profile.NORMAL, ProfileNormal.GetProfile());
 
-        PlayerLoopManager.SetActiveProfile(Profile.IDLE);
-    }
-
-    private void TimeoutActionActive()
-    {
         PlayerLoopManager.SetActiveProfile(Profile.IDLE);
     }
 
