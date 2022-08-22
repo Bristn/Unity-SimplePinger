@@ -1,10 +1,9 @@
-using Assets.Scripts.PlayerLoop;
+using PlayerLoopProfiles;
 using System;
 using System.Collections.Generic;
 using UnityEngine.PlayerLoop;
 using static Main;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
-using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
+using static PlayerLoopProfiles.PlayerLoopProfile;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
@@ -28,28 +27,19 @@ public static class ProfileIdle
             typeof(ProfilerStartFrame),
             typeof(ProfilerSynchronizeStats),
             typeof(ProfilerEndFrame),
-
-            // input Test
-            typeof(SynchronizeInputs),
-            typeof(EarlyUpdate.UpdateInputManager),
-            typeof(EarlyUpdate.ProcessRemoteInput),
-            typeof(NewInputFixedUpdate),
-            typeof(CheckTexFieldInput),
-            typeof(NewInputUpdate),
-            typeof(InputEndFrame),
-            typeof(ResetInputAxis),
         });
 
         PlayerLoopProfile profile = new PlayerLoopProfileBuilder()
             .FilterSystems(filter)
             .FilterType(FilterType.KEEP)
             .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
-            .InteractionCallback(InteractionActionIdle)
+            .KeepInteractionSystems(true)
+            .InteractionCallback(Interaction)
             .Build();
         return profile;
     }
 
-    private static void InteractionActionIdle(InteractionType pType)
+    private static void Interaction(string pType)
     {
         PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
     }

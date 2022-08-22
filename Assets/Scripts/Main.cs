@@ -1,16 +1,52 @@
-using Assets.Scripts.PlayerLoop;
+using PlayerLoopProfiles;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Main : MonoBehaviour
 {
     public static Main Instance;
 
+    [SerializeField] private InputActionAsset inputAsset;
+
+    [Header("UI Documents")]
     [SerializeField] private UIDocument tabSelection;
     [SerializeField] private UIDocument entrySelection;
     [SerializeField] private UIDocument entryEditor;
     [SerializeField] private UIDocument settings;
+
+
+    public enum InteractionType
+    {
+        NAVIGATE,
+        POINT,
+        RIGHT_CLICK,
+        MIDDLE_CLICK,
+        CLICK,
+        SCROLL_WHEEL,
+        SUBMIT,
+        CANCEL,
+        TRACKED_DEVICE_POSITION,
+        TRACKED_DEVICE_ORIENTATION,
+    }
+
+    public static List<string> actionNames = new string[]
+    {
+        "Navigate",
+        "Point",
+        "RightClick",
+        "MiddleClick",
+        "Click",
+        "ScrollWheel",
+        "Submit",
+        "Cancel",
+        "TrackedDevicePosition",
+        "TrackedDeviceOrientation"
+    }.ToList();
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void UpdateStatusBar()
@@ -73,15 +109,16 @@ public class Main : MonoBehaviour
     private void SetupLowPower()
     {
         QualitySettings.vSyncCount = 0;
-        UnityEngine.Application.targetFrameRate = 30;
+        Application.targetFrameRate = 30;
 
         PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
             .TimeoutCallback(TimeoutActionActive)
             .TimeoutDuration(0.1f)
             .AdditionalSystems(LongClickManager.System, ApplicationBack.System)
-            .UI(typeof(TextField), (Focusable element) => true)
+            .ActiveUiEvaluation(typeof(TextField), (Focusable element) => true)
             .Build();
 
+        PlayerLoopInteraction.AddActionMap(inputAsset.FindActionMap("UI"));
         PlayerLoopManager.AddProfile(Profile.IDLE, ProfileIdle.GetProfile());
         PlayerLoopManager.AddProfile(Profile.NORMAL, normal);
 

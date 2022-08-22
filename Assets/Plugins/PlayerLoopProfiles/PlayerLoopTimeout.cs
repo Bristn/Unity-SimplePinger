@@ -2,9 +2,8 @@
 using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UIElements;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public static class PlayerLoopTimeout 
     {
@@ -13,6 +12,9 @@ namespace Assets.Scripts.PlayerLoop
         private static bool tempInteraction;
         private static PlayerLoopProfile profile;
 
+        /// <summary>
+        /// The active profile which is needed to invoke it's callbacks and get various other variables.
+        /// </summary>
         public static PlayerLoopProfile Profile 
         {
             private get => profile;
@@ -24,40 +26,44 @@ namespace Assets.Scripts.PlayerLoop
             }
         }
 
+        /// <summary>
+        /// Custom PlayerLoopSystem which gets added to the PlayerLoop with all profiles.
+        /// </summary>
         public static PlayerLoopSystem UpdateSystem { get; private set; } = new PlayerLoopSystem()
         {
             type = typeof(PlayerLoopTimeout),
             updateDelegate = Update,
         };
 
-
-        public static void Update()
+        /// <summary>
+        /// "Adds" a new interaction. 
+        /// This will invoke the current profiles 'InteractionCallback' with the passed string parameter as interaction.
+        /// Aside from that the current timer gets reset.
+        /// </summary>
+        public static void AddInteraction(string pInteraction)
         {
-            if (!UnityEngine.Application.isPlaying)
+            if (!Profile.IgnoredInteraction.Contains(pInteraction))
             {
-                return;
+                tempInteraction = true;
             }
-
-            UpdateTimeout();
-        }
-
-
-        public static void AddInteraction(InteractionType pInteraction)
-        {
-            if (Profile.IgnoredInteraction.Contains(pInteraction))
-            {
-                return;
-            }
-
-            tempInteraction = true;
+            
             if (Profile.InteractionAction != null)
             {
                 Profile.InteractionAction.Invoke(pInteraction);
             }
         }
 
-        public static void UpdateTimeout()
+        /// <summary>
+        /// A custom update method which gets added to the playerloop on any profile. 
+        /// Used to ensure it gets called even if all other systems get removed.
+        /// </summary>
+        public static void Update()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (PlayerLoopManager.PreventProfileChange > 0 || Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
             {
                 ResetTimer();
@@ -85,7 +91,7 @@ namespace Assets.Scripts.PlayerLoop
                 return true;
             }
 
-            foreach (var element in Profile.UITest)
+            foreach (var element in Profile.UiEvaluation)
             {
                 if (selected.TryGetComponent(element.Key, out Component component))
                 {
@@ -114,7 +120,7 @@ namespace Assets.Scripts.PlayerLoop
                     continue;
                 }
 
-                foreach (var element in Profile.UiToolkitTest)
+                foreach (var element in Profile.UiToolkitEvaluation)
                 {
                     if (focused.GetType() == element.Key)
                     {
@@ -128,7 +134,6 @@ namespace Assets.Scripts.PlayerLoop
 
             return false;
         }
-
 
         private static void ResetTimer()
         {

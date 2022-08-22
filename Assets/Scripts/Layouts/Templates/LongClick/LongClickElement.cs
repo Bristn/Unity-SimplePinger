@@ -1,4 +1,4 @@
-using Assets.Scripts.PlayerLoop;
+using PlayerLoopProfiles;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -71,7 +71,7 @@ public class LongClickElement
 
         if (timePassed >= longClickDuration)
         {
-            PlayerLoopTimeout.AddInteraction(PlayerLoopInteraction.InteractionType.CLICK);
+            PlayerLoopTimeout.AddInteraction(Main.actionNames[(int)Main.InteractionType.CLICK]);
             onLongClick?.Invoke();
             Reset();
         }

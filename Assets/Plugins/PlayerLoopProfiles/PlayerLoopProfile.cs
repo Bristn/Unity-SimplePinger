@@ -5,9 +5,8 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.UIElements;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public class PlayerLoopProfile
     {
@@ -19,21 +18,34 @@ namespace Assets.Scripts.PlayerLoop
             REMOVE
         }
 
-        public delegate bool Test(Component pObject);
+        /// <summary>
+        /// Used in conjunction with 'PlayerLoopProfileBuilder.ActiveUiEvaluation'. 
+        /// This delegate gets called once a object with the type; specified in the PlayerLoopProfile, is selected or focused.
+        /// Returns true if the 'TimeoutCallback' should be prevented
+        /// <returns>True if the 'TimeoutCallback' should be prevented</returns>
+        public delegate bool ActiveUiEvaluation(Component pObject);
 
-        public delegate bool ToolkitTest(Focusable pObject);
+        /// <summary>
+        /// Used in conjunction with 'PlayerLoopProfileBuilder.ActiveUiEvaluation'. 
+        /// This delegate gets called once a object with the type; specified in the PlayerLoopProfile, is selected or focused.
+        /// Returns true if the 'TimeoutCallback' should be prevented
+        /// <returns>True if the 'TimeoutCallback' should be prevented</returns>
+        public delegate bool ActiveUiToolkitEvaluation(Focusable pObject);
 
-        public PlayerLoopProfile(
-            List<Type> pFilteredSystems, 
-            FilterType pFilteredType, 
-            List<PlayerLoopSystem> pAdditionalSystems, 
-            PlayerLoopSystem pBaseSystem,
-            Action<InteractionType> pInteractionAction,
-            List<InteractionType> pIgnoredInteraction,
-            Action pTimeoutAction,
-            float pTimeoutDuration,
-            Dictionary<Type, Test> pUITest,
-            Dictionary<Type, ToolkitTest> pUiToolkitTest)
+        public PlayerLoopProfile
+            (
+                List<Type> pFilteredSystems, 
+                FilterType pFilteredType, 
+                List<PlayerLoopSystem> pAdditionalSystems, 
+                PlayerLoopSystem pBaseSystem,
+                Action<string> pInteractionAction,
+                List<string> pIgnoredInteraction,
+                Action pTimeoutAction,
+                float pTimeoutDuration,
+                Dictionary<Type, ActiveUiEvaluation> pUiEvaluation,
+                Dictionary<Type, ActiveUiToolkitEvaluation> pUiToolkitEvaluation,
+                bool pKeepInteractionSystems
+            )
         {
             FilteredType = pFilteredType;
             FilteredSystems = pFilteredSystems;
@@ -42,8 +54,9 @@ namespace Assets.Scripts.PlayerLoop
             IgnoredInteraction = pIgnoredInteraction;
             TimeoutAction = pTimeoutAction;
             TimeoutDuration = pTimeoutDuration;
-            UITest = pUITest;
-            UiToolkitTest = pUiToolkitTest;
+            UiEvaluation = pUiEvaluation;
+            UiToolkitEvaluation = pUiToolkitEvaluation;
+            KeepInteractionSystems = pKeepInteractionSystems;
 
             baseSystem = pBaseSystem;
         }
@@ -54,17 +67,19 @@ namespace Assets.Scripts.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
-        public Action<InteractionType> InteractionAction { get; private set; }
+        public Action<string> InteractionAction { get; private set; }
 
-        public List<InteractionType> IgnoredInteraction { get; private set; }
+        public List<string> IgnoredInteraction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 
         public float TimeoutDuration { get; private set; }
 
-        public Dictionary<Type, Test> UITest  { get; private set; }
+        public Dictionary<Type, ActiveUiEvaluation> UiEvaluation  { get; private set; }
 
-        public Dictionary<Type, ToolkitTest> UiToolkitTest  { get; private set; }
+        public Dictionary<Type, ActiveUiToolkitEvaluation> UiToolkitEvaluation  { get; private set; }
+
+        public bool KeepInteractionSystems { get; private set; }
 
         private PlayerLoopSystem cachedSystem;
 
@@ -159,9 +174,11 @@ namespace Assets.Scripts.PlayerLoop
             }
         }
 
-        private bool KeepFilter(PlayerLoopSystem pSystem) => FilteredSystems.Contains(pSystem.type);
+        private bool KeepFilter(PlayerLoopSystem pSystem) => IsInputSystem(pSystem) || FilteredSystems.Contains(pSystem.type);
 
-        private bool RemoveFilter(PlayerLoopSystem pSystem) => !FilteredSystems.Contains(pSystem.type);
+        private bool RemoveFilter(PlayerLoopSystem pSystem) => IsInputSystem(pSystem) ||  !FilteredSystems.Contains(pSystem.type);
+        
+        private bool IsInputSystem(PlayerLoopSystem pSystem) => KeepInteractionSystems && PlayerLoopProfileBuilder.InputSystems.Contains(pSystem.type);
 
         private class PlayerLoopDummy
         {
