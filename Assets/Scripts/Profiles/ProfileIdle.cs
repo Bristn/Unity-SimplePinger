@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.PlayerLoop;
 using static Main;
 using static PlayerLoopProfiles.PlayerLoopProfile;
+using static Profiles;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
@@ -41,6 +42,6 @@ public static class ProfileIdle
 
     private static void Interaction(string pType)
     {
-        PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
+        PlayerLoopManager.SetActiveProfile(ProfileType.NORMAL);
     }
 }

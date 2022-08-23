@@ -1,6 +1,7 @@
 using PlayerLoopProfiles;
 using UnityEngine.UIElements;
 using static Main;
+using static Profiles;
 
 public static class ProfileNormal
 {
@@ -22,6 +23,6 @@ public static class ProfileNormal
 
     private static void Timeout()
     {
-        PlayerLoopManager.SetActiveProfile(Profile.IDLE);
+        PlayerLoopManager.SetActiveProfile(ProfileType.IDLE);
     }
 }

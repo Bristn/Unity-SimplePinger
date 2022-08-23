@@ -1,7 +1,4 @@
-using PlayerLoopProfiles;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -18,37 +15,11 @@ public class Main : MonoBehaviour
     [SerializeField] private UIDocument entryEditor;
     [SerializeField] private UIDocument settings;
 
-    public enum InteractionType
-    {
-        NAVIGATE,
-        POINT,
-        RIGHT_CLICK,
-        MIDDLE_CLICK,
-        CLICK,
-        SCROLL_WHEEL,
-        SUBMIT,
-        CANCEL,
-        TRACKED_DEVICE_POSITION,
-        TRACKED_DEVICE_ORIENTATION,
-    }
-
-    public static List<string> actionNames = new string[]
-    {
-        "Navigate",
-        "Point",
-        "RightClick",
-        "MiddleClick",
-        "Click",
-        "ScrollWheel",
-        "Submit",
-        "Cancel",
-        "TrackedDevicePosition",
-        "TrackedDeviceOrientation"
-    }.ToList();
-
     void Start()
     {
         Screen.fullScreen = false;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
 
         Instance = this;
         tabSelection.enabled = false;
@@ -56,7 +27,7 @@ public class Main : MonoBehaviour
         entryEditor.enabled = false;
         settings.enabled = false;
 
-        SetupLowPower();
+        Profiles.SetupProfiles(inputAsset.FindActionMap("UI"));
 
         Persistence.CreateDirectories();
 
@@ -83,34 +54,16 @@ public class Main : MonoBehaviour
     
     public static void StopAsync(IEnumerator pRoutine) => Instance.StopCoroutine(pRoutine);
     
-    public enum Profile
-    {
-        IDLE,
-        NORMAL,
-    }
-
-    private void SetupLowPower()
-    {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
-
-        PlayerLoopInteraction.AddActionMap(inputAsset.FindActionMap("UI"));
-        PlayerLoopManager.AddProfile(Profile.IDLE, ProfileIdle.GetProfile());
-        PlayerLoopManager.AddProfile(Profile.NORMAL, ProfileNormal.GetProfile());
-
-        PlayerLoopManager.SetActiveProfile(Profile.IDLE);
-    }
-
     private void OnApplicationFocus(bool pFocused)
     {
-        PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
+        Profiles.OnApplicationFocus(pFocused);
     }
 
     private void OnApplicationPause(bool pPaused)
     {
+        Profiles.OnApplicationPause(pPaused);
         if (!pPaused)
         {
-            PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
             if (TabPersistence.ImportTab())
             {
                 tabSelection.enabled = false;

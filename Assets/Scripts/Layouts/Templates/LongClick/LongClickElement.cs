@@ -71,7 +71,7 @@ public class LongClickElement
 
         if (timePassed >= longClickDuration)
         {
-            PlayerLoopTimeout.AddInteraction(Main.actionNames[(int)Main.InteractionType.CLICK]);
+            PlayerLoopTimeout.AddInteraction(Profiles.actionNames[(int)Profiles.InteractionType.CLICK]);
             onLongClick?.Invoke();
             Reset();
         }
