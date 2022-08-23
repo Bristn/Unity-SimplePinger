@@ -18,7 +18,6 @@ public class Main : MonoBehaviour
     [SerializeField] private UIDocument entryEditor;
     [SerializeField] private UIDocument settings;
 
-
     public enum InteractionType
     {
         NAVIGATE,
@@ -46,16 +45,6 @@ public class Main : MonoBehaviour
         "TrackedDevicePosition",
         "TrackedDeviceOrientation"
     }.ToList();
-
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
-    public static void UpdateStatusBar()
-    {
-        ApplicationChrome.dimmed = false;
-        ApplicationChrome.statusBarState = ApplicationChrome.States.TranslucentOverContent;
-        ApplicationChrome.navigationBarState = ApplicationChrome.States.Visible;
-        ApplicationChrome.statusBarColor = 0x00000000;
-    }
 
     void Start()
     {
@@ -90,16 +79,10 @@ public class Main : MonoBehaviour
 
     public static UIDocument Settings => Instance.settings;
 
-    public static void RunAsync(IEnumerator pRoutine)
-    {
-        Instance.StartCoroutine(pRoutine);
-    }
-
-    public static void StopAsync(IEnumerator pRoutine)
-    {
-        Instance.StopCoroutine(pRoutine);
-    }
-
+    public static void RunAsync(IEnumerator pRoutine) => Instance.StartCoroutine(pRoutine);
+    
+    public static void StopAsync(IEnumerator pRoutine) => Instance.StopCoroutine(pRoutine);
+    
     public enum Profile
     {
         IDLE,
