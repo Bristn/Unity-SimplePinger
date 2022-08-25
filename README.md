@@ -14,7 +14,7 @@ If you want to checkout the application by yourself there are a few download opt
 - Download the android app from the [releases](https://github.com/Bristn/Unity-PlayerLoopProfiles) of this repository.
 - Download the windows application from the [releases](https://github.com/Bristn/Unity-PlayerLoopProfiles) of this repository. In this version certain functions like sharing files or importing tabs wont work, but the core should remain functional. It's mainly intended to showcase that the plugin should work for any platform. 
 
-Both repository versions are build in development mode for easier debugging/profiling.
+Both repository versions were built in development mode for easier debugging/profiling.
 
 ## Player Loop Profiles
 
