@@ -18,7 +18,9 @@ If you want to checkout the application by yourself there are a few download opt
 
 As previosuly stated, the [Unity Player Loop Profiles Plugin](https://github.com/Bristn/Unity-PlayerLoopProfiles) is used to reduce CPU usage. Here is a quick comparison video showcasing the difference when using the plugin.
 
-// todo
+[![Youtube video](https://img.youtube.com/vi/WG6ZjgXcVds/0.jpg)](https://www.youtube.com/watch?v=WG6ZjgXcVds)
+
+In case the link above isn't working, try [this one](https://www.youtube.com/watch?v=WG6ZjgXcVds).
 
 For more information checkout the [plugins GitHub repository](https://github.com/Bristn/Unity-PlayerLoopProfiles).
 
