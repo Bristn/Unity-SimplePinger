@@ -28,7 +28,9 @@ public static class Connection
             pEntry.Status = PingEntry.PingStatus.SUCCESS;
             if (SettingsData.Settings.VibrateOnSuccess)
             {
+#if UNITY_ANDROID
                 Handheld.Vibrate();
+#endif
             }
         }
         else
@@ -36,7 +38,9 @@ public static class Connection
             pEntry.Status = PingEntry.PingStatus.FAILURE;
             if (SettingsData.Settings.VibrateOnFailure)
             {
+#if UNITY_ANDROID
                 Handheld.Vibrate();
+#endif
             }
         }
 
