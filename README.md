@@ -9,8 +9,7 @@ It's a pretty simple application, which allows you to create mutliple tabs, each
 ## Download
 
 If you want to checkout the application by yourself there are a few download options.
-
-- Download the android app in the app store (not verified yet).
+- Download the android app in the [google play store](https://play.google.com/store/apps/details?id=com.bristn.pinger).
 - Download the android app from the [releases](https://github.com/Bristn/Unity-SimplePinger/releases) of this repository.
 - Download the windows application from the [releases](https://github.com/Bristn/Unity-SimplePinger/releases) of this repository. In this version certain functions like sharing files or importing tabs wont work, but the core should remain functional. It's mainly intended to showcase that the plugin should work for any platform. 
 
